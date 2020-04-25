@@ -1,0 +1,77 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Frontend + Backend",
+            "configurations": ["Frontend: Launch Chrome","Backend: launch nodemon"],
+        }
+    ],
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach",
+            "port": 9229,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Backend: launch this file",
+            "cwd": "${workspaceFolder}/backend",
+            "program": "${file}",
+            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/babel-node",
+            // "runtimeArgs": ["--inspect"],
+            "restart": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Backend: launch nodemon",
+            "cwd": "${workspaceFolder}/backend",
+            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/nodemon",
+            "runtimeArgs": ["--inspect", "--exec","babel-node"],
+            "program": "${workspaceFolder}/backend/main.js",
+            "restart": true,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "port": 9222,
+            "name": "Frontend: Launch Chrome",
+            "url": "http://localhost:${config:app.port}",
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "breakOnLoad": true,
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///*": "*",
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/*",
+                "webpack:///./src/*": "${webRoot}/*",
+                "webpack:///./src/views/*": "${webRoot}/views/*",
+                "webpack:///./node_modules/*": "${workspaceFolder}/node_modules/*",
+                "webpack:///./~/*": "${webRoot}/node_modules/*",
+            },
+            "env": {
+                "NO_BACKEND": "1"
+            },
+            "preLaunchTask": "webpack-dev-start",
+            // "postDebugTask": "webpack-dev-stop",
+        },
+    ]
+}

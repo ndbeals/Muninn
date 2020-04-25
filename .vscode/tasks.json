@@ -1,0 +1,51 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "webpack-dev-start",
+            "path": "./frontend/package.json",
+            "type": "npm",
+            "script": "serve-front --inspect",
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": "",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3,
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".",
+                        "endsPattern": "."
+                    }
+                }
+            ],
+            "options": {
+                "env": {
+                    "NO_BACKEND": "1"
+                }
+            },
+            "promptOnClose": false,
+            "group": "test"
+        },
+
+        {
+            "label": "webpack-dev-stop",
+            "type": "shell",
+            "isBackground": false,
+            "windows": {
+                "command": "netstat -ano | ? {$_ -like '*0.0.0.0:${config:app.port} *'} | % { $_ -match '\"\\d+$\"'; echo $matches[0]; taskkill /F /PID $matches[0] }"
+            },
+            "linux":{
+                "command": "lsof -ti:${config:app.port} | xargs kill"
+            },
+            "problemMatcher": []
+        },
+    ]
+}
