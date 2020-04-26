@@ -1,0 +1,10 @@
+{
+  "name": "Muninn",
+  "version": "0.1.0",
+  "description": "Notification center",
+  "main": "src/index.js",
+  "repository": "github.com/ndbeals/Muninn",
+  "author": "Nathan Beals <nathan_beals@hotmail.com>",
+  "license": "GPL 3.0",
+  "private": false
+}
