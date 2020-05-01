@@ -1,0 +1,16 @@
+type Profile {
+  id: ID!
+  User: User!
+  diplayName: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type User {
+  id: ID!
+  name: String!
+  createdAt: Date!
+  updatedAt: Date!
+  Profile: Profile!
+  Groups: [UserGroup]
+}

@@ -2,21 +2,26 @@
   "name": "Muninn-Server",
   "version": "0.1.0",
   "description": "Muninn API & Notification server.",
-  "main": "index.mjs",
+  "main": "index.js",
+  "module": "main.js",
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    "dev": "npx nodemon --inspect index.mjs",
+    "dev": "./node_modules/.bin/nodemon --inspect -r esm main.js",
     "build": "echo not implemented"
   },
   "dependencies": {
     "apollo-server-express": "^2.12.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "express-validator": "^6.4.1",
     "graphql": "^15.0.0",
+    "graphql-import": "^1.0.2",
     "passport": "^0.4.1",
     "sequelize": "^5.21.7"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-airbnb-base": "^14.1.0",

@@ -20,7 +20,11 @@ import ApolloServerExpress from 'apollo-server-express';
 
 const { ApolloServer, gql } = ApolloServerExpress;
 
-console.log(gql, '\n\n\n', ApolloServer);
+// console.log(gql, '\n\n\n', ApolloServer);
 
 // import Router, * as express from 'express';
 // console.log('\n\n\n', Router, express);
+
+import { check } from 'express-validator';
+
+console.log(check);

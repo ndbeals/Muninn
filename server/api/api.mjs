@@ -1,7 +1,7 @@
 import { ApolloServer, gql, AuthenticationError } from 'apollo-server-express';
-import faker from 'faker';
-import times from 'lodash.times';
-import random from 'lodash.random';
+// import faker from 'faker';
+// import times from 'lodash.times';
+// import random from 'lodash.random';
 
 // import bodyParser from "body-parser";
 import express from 'express';
@@ -14,7 +14,7 @@ import {
 } from 'express-validator';
 
 import Op from 'sequelize';
-import typeDefs from './schema.js';
+import typeDefs from './schema.mjs';
 import resolvers from './resolvers.mjs';
 import db from '../models';
 
@@ -22,8 +22,8 @@ import db from '../models';
 import { Handler } from '../events';
 import * as events from '../events';
 
-export default async function initializeAPI(app, config, logger) {
-  await db.sequelize.sync();
+export default async function setupAPI(app, config, logger) {
+  // await db.sequelize.sync();
 
   const graphqlServer = new ApolloServer({
     typeDefs: gql(typeDefs),

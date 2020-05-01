@@ -18,6 +18,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'require-await': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': 'off',
+    // 'import/extensions': 'off',
   },
   globals: {
     Atomics: 'readonly',
@@ -29,7 +30,14 @@ module.exports = {
     parser: 'babel-eslint',
   },
   settings: {
-    'import/extensions': ['.mjs', '.js'],
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        js: 'never',
+        mjs: 'never',
+      },
+    ],
     'import/resolver': {
       node: {
         extensions: ['.mjs', '.js'],

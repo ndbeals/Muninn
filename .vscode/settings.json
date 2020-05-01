@@ -4,6 +4,9 @@
 
   // "prettier.configPath": "./frontend/.prettierrc",
   // "prettier.vueIndentScriptAndStyle": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   "eslint.workingDirectories": [
     "./client",
     "./server",
