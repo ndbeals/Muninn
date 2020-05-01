@@ -1,7 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'universal',
+  // mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
@@ -44,8 +45,18 @@ export default {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    // '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
+    ['nuxt-compress',
+      {
+        gzip: {
+          cache: true
+        },
+        brotli: {
+          threshold: 10240
+        }
+      }
+    ]
   ],
   apollo: {  
     clientConfigs: {
@@ -74,6 +85,9 @@ export default {
         }
       }
     }
+  },
+  generate: {
+    fallback: 'fallback-spa.html'
   },
   /*
    ** Build configuration

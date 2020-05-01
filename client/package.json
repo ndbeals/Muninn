@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
-    "@nuxtjs/dotenv": "^1.4.0",
     "graphql-tag": "^2.10.3",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "nuxt-compress": "^1.1.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
