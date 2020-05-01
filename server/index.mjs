@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 // import session from "express-session";
 
 // import passport from "passport";
@@ -14,7 +14,6 @@ import express from "express";
 // import db from "./models";
 
 // const app
-
 
 // passport.serializeUser(function(user, cb) {
 //   cb(null, user.id);
@@ -56,28 +55,27 @@ import express from "express";
 // );
 
 async function main() {
-  const app = express()
-  app.use(express.json())
+  const app = express();
+  app.use(express.json());
 
   app.get('/test', async (req, res) => {
-    console.log("got test")
+    console.log('got test');
 
-    res.json({hi:"bye"})
-  })
+    res.json({ hi: 'byee' });
+  });
 
-  app.listen({port: 3002}, () => {
-    console.log("listening")
-  })
+  app.listen({ port: 3002 }, () => {
+    console.log('listening');
+  });
 }
-
 
 // if (!module.parent) {
 main()
-  .then(text => {
+  .then((text) => {
     // console.log("main then: ",text);
   })
-  .catch(err => {
-    console.error("main failed: ", err);
+  .catch((err) => {
+    console.error('main failed: ', err);
     // Deal with the fact the chain failed
   }); // this is the main module
 // }

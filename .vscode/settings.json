@@ -1,31 +1,31 @@
 {
   // User defined settings for debugging and stuff.
-  "app.port": 8080,
+  // "app.port": 8080,
 
-  "prettier.configPath": "./frontend/.prettierrc",
-  "prettier.vueIndentScriptAndStyle": true,
+  // "prettier.configPath": "./frontend/.prettierrc",
+  // "prettier.vueIndentScriptAndStyle": true,
   
   "eslint.workingDirectories": [
-    "./frontend",
-    "./backend",
+    "./client",
+    "./server",
   ],
-  "eslint.options": { "configFile": "../frontend/.eslintrc.js" },
+  // "eslint.options": { "configFile": "../frontend/.eslintrc.js" },
 
   // "debug.onTaskErrors": "debugAnyway",
 
-  "javascript.implicitProjectConfig.experimentalDecorators": true,
-  "javascript.implicitProjectConfig.module": "esnext",
-  "javascript.validate.enable": false,
+  // "javascript.implicitProjectConfig.experimentalDecorators": true,
+  // "javascript.implicitProjectConfig.module": "esnext",
+  // "javascript.validate.enable": false,
   // "typescript.validate.enable": false,
   // "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabCompletion": "onlySnippets",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     // "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    // "editor.formatOnSave": true,
+    "editor.formatOnSave": true,
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
-  "editor.tabCompletion": "onlySnippets",
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -49,7 +49,5 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
     "editor.insertSpaces": true
-  },
-  // Set the default
-  // "editor.formatOnSave": false,
+  }
 }
