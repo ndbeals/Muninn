@@ -1,7 +1,7 @@
-import { GraphQLScalarType } from "graphql";
-import { Kind } from "graphql/language";
+import GraphQLScalarType from 'graphql';
+// import { Kind } from 'graphql/language';
 
-function loadColumn(colName, convert = x => x) {
+function loadColumn(colName, convert = (x) => x) {
   return async (parent, {}, { db }, info) =>
     convert((await parent.reload({ attributes: [colName] }))[colName]);
 }
@@ -26,33 +26,35 @@ export default {
 
     // NotifierGroups: async (parent, args, { db, user }, info) => {
     BaseNotifierGroups: async (parent, args, { db, user }, info) => {
-      let user_groups = await user.getUserGroups()
-      let notifier_groups = []
+      const user_groups = await user.getUserGroups();
+      const notifier_groups = [];
 
       for (const user_group of user_groups) {
-        let notifier_group = await user_group.getNotifierGroups({
+        const notifier_group = await user_group.getNotifierGroups({
           where: {
-            parentID: null
-          }
-        })
-        notifier_groups.push( ...notifier_group )
+            parentID: null,
+          },
+        });
+        notifier_groups.push(...notifier_group);
       }
-      return notifier_groups
+      return notifier_groups;
     },
     // NotifierGroupTree: (parent, args, { db }, info) => db.NotifierGroup.findAll({ include: [{ model: db.NotifierGroup, nested: true }]}),
-    NotifierGroupTree: (parent, args, { db }, info) => db.NotifierGroup.findAll(),
+    NotifierGroupTree: (parent, args, { db }, info) =>
+      db.NotifierGroup.findAll(),
 
-    Notification: (parent, { id }, { db }, info) => db.Notification.findByPk(id),
+    Notification: (parent, { id }, { db }, info) =>
+      db.Notification.findByPk(id),
     Notifications: (parent, args, { db }, info) => db.Notification.findAll(),
   },
   User: {
     Groups: async (parent, args, { db }, info) => {
       // let v = await (db.User.findByPk(parent.id));
       // await v.getUserGroups()
-      let v = await parent.getUserGroups();
-      console.log("V? ", v, " |");
-      return v
-    }
+      const v = await parent.getUserGroups();
+      console.log('V? ', v, ' |');
+      return v;
+    },
     //   .getGroups().Groups,
 
     // async createdAt(parent, {}, { db }, info) {
@@ -64,16 +66,16 @@ export default {
   Notifier: {
     Group: async (parent, args, { db }, info) =>
       db.NotifierGroup.findByPk(parent.notifierGroupID),
-      
-    Events: async (parent, args, { db }, info) => parent.getEvents()
 
+    Events: async (parent, args, { db }, info) => parent.getEvents(),
   },
-  
+
   NotifierGroup: {
     Notifiers: async (parent, args, { db }, info) =>
       db.Notifier.findAll({ where: { notifierGroupID: parent.id } }),
-      
-    Parent: async (parent, args, { db }, info) => db.NotifierGroup.findByPk( parent.parentID ),
+
+    Parent: async (parent, args, { db }, info) =>
+      db.NotifierGroup.findByPk(parent.parentID),
 
     Children: async (parent, args, { db }, info) => parent.getNotifierGroups(),
 
@@ -88,8 +90,8 @@ export default {
   },
 
   Date: new GraphQLScalarType({
-    name: "Date",
-    description: "Date custom scalar type",
+    name: 'Date',
+    description: 'Date custom scalar type',
     parseValue(value) {
       return new Date(value); // value from the client
     },
@@ -101,8 +103,8 @@ export default {
         return new Date(+ast.value); // ast value is always in string format
       }
       return null;
-    }
-  })
+    },
+  }),
   // Author: {
   //     posts: (parent, args, context, info) => parent.getPosts(),
   // },

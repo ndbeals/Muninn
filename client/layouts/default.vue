@@ -4,6 +4,7 @@
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
+      :width="width"
       fixed
       app
     >
@@ -50,9 +51,7 @@
       <v-list>
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
+            <v-icon light>mdi-repeat</v-icon>
           </v-list-item-action>
           <v-list-item-title>Switch drawer (click me)</v-list-item-title>
         </v-list-item>
@@ -65,6 +64,9 @@
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
@@ -88,6 +90,9 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js'
     }
+  },
+  computed: {
+    ...mapState('drawer', ['width'])
   }
 }
 </script>

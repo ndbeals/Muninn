@@ -6,7 +6,7 @@
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    "dev": "nodemon --inspect index.mjs",
+    "dev": "npx nodemon --inspect index.mjs",
     "build": "echo not implemented"
   },
   "dependencies": {

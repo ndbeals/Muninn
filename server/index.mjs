@@ -54,9 +54,47 @@ import express from 'express';
 //   })
 // );
 
+// import { ApolloServer, AuthenticationError, gql } from 'apollo-server-express'; // How it should be
+import ApolloServerExpress from 'apollo-server-express';
+import typeDefs from './api/schema.mjs';
+import resolvers from './api/resolvers.mjs';
+
+const { ApolloServer, gql } = ApolloServerExpress;
+// console.log(typeDefs);
+
+async function setupAPI(app) {
+  app.use(express.json()); // for parsing application/json
+  app.use(express.urlencoded({ extended: true })); // for application/x-www-form-urlencoded
+  app.use(express.raw());
+  app.use(express.text());
+
+  const graphqlServer = new ApolloServer({
+    typeDefs: gql(typeDefs),
+    resolvers,
+    // context: { db }
+    context: async ({ req }) => {
+      // get the user token from the headers
+      const token = req.headers.authorization || '';
+
+      // try to retrieve a user with the token
+      // const user = getUser(token);
+      // const user = await db.User.findByPk(1);
+
+      // optionally block the user
+      // we could also check user roles/permissions here
+      // if (!req.user) throw new AuthenticationError('you must be logged in');
+
+      // add the user to the context
+      return {};
+      // return { db, user };
+    },
+  });
+
+  graphqlServer.applyMiddleware({ app });
+}
+
 async function main() {
   const app = express();
-  app.use(express.json());
 
   app.get('/test', async (req, res) => {
     console.log('got test');

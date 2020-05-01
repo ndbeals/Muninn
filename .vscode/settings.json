@@ -4,7 +4,6 @@
 
   // "prettier.configPath": "./frontend/.prettierrc",
   // "prettier.vueIndentScriptAndStyle": true,
-  
   "eslint.workingDirectories": [
     "./client",
     "./server",
@@ -39,8 +38,9 @@
     "editor.insertSpaces": true
   },
   "[vue]": {
-    "editor.defaultFormatter": "octref.vetur",
-      "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "octref.vetur",
+    "editor.formatOnSave": true,
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
