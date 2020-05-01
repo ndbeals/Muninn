@@ -1,4 +1,4 @@
-import GraphQLScalarType from 'graphql';
+// import { GraphQLScalarType } from 'graphql';
 // import { Kind } from 'graphql/language';
 
 function loadColumn(colName, convert = (x) => x) {
