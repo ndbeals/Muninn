@@ -1,8 +1,9 @@
-# no-express
+# Muninn
+A single hub to gather your notifications, reports, events, ...
 
-> My cat&#39;s meow Nuxt.js project
+More to come...
 
-## Build Setup
+## Client Build Setup
 
 ```bash
 # install dependencies
