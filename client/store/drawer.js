@@ -8,7 +8,7 @@ export const state = () => ({
 
 export const mutations = {
   setWidth(state, width) {
-    console.log('Set width mutation')
+    // console.log('Set width mutation')
     state.width = width
     // state.authUser = user
   }
@@ -21,6 +21,15 @@ export const actions = {
     // if (req.session && req.session.authUser) {
     //   commit('SET_USER', req.session.authUser)
     // }
+  },
+  // setDrawerWidth: {
+  //   root: true,
+  //   handler: ({ commit }, width) => {
+  //     console.log('set drawer width handler')
+  //   }
+  // },
+  setWidth({ commit }, width) {
+    commit('setWidth', width)
   },
   async login({ commit }, { username, password }) {
     console.log('Login in store/drawer.js')

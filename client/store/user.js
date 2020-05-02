@@ -18,8 +18,9 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setToken(state, user) {
+  setToken(state, token) {
     console.log('Set Token Mut')
+    state.token = token
     // state.authUser = user
   },
   setAuthenticated(state, authState) {
@@ -42,6 +43,11 @@ export const mutations = {
   },
   setGroups(state, groups) {
     state.groups = groups
+  },
+
+  // setConfigKey(state,{key, val})
+  setConfig(state, config) {
+    state.config = config
   }
 }
 
