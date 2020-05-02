@@ -12,8 +12,8 @@ export default {
   Mutation: {
     // test: (parent, args, { db }, info) => db.User.findAll(),
     login: async (parent, args, { db }, info) => {
-      await sleep(250);
-      console.log('login mutation: ');
+      await sleep(150);
+      console.log('login mutation: ', parent, args);
       return {
         id: 'id',
         token: 'token',

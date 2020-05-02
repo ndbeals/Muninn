@@ -1,3 +1,7 @@
+type Mutation {
+    login(user: String, password: String): User
+}
+
 type Profile {
   id: ID!
   User: User!

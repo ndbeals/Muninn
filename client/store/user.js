@@ -63,14 +63,13 @@ export const actions = {
     const client = this.app.apolloProvider.defaultClient
 
     let login
-
     try {
       ;({
         data: { login }
       } = await client.mutate({
         mutation: gql`
-          mutation {
-            login(email: "test", password: "password") {
+          mutation login($user: String!, $password: String!) {
+            login(user: $user, password: $password) {
               id
               token
               name

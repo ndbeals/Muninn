@@ -4,10 +4,10 @@
       ref="drawer"
       v-model="drawer"
       :mini-variant="miniVariant"
-      :clipped="clipped"
       :width="mainDrawer.width"
-      :fixed="fixed"
-      :value="true"
+      :permanent="drawer"
+      :clipped="mainDrawer.clipped"
+      absolute
       app
     >
       <v-list>
@@ -22,17 +22,17 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar ref="appBar" :clipped-left="clipped" fixed app>
+    <v-app-bar ref="appBar" :clipped-left="mainDrawer.clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
+      <!-- <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
       </v-btn>
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -74,7 +74,7 @@ export default {
       navigation: {
         borderSize: 4
       },
-      clipped: false,
+      clipped: true,
       drawer: true,
       fixed: false,
       items: [
@@ -94,6 +94,7 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
       mainDrawer: {
+        clipped: true,
         resizing: false,
         width: 200,
         borderSize: 4
@@ -122,11 +123,9 @@ export default {
       i.style.cursor = 'ew-resize'
     },
     setMainDrawerWidth(w) {
-      // this.mainDrawer.width =
       // MIN_DRAWER_WIDTH & MAX_DRAWER_WIDTH
       const width = Math.min(Math.max(w, this.mainDrawer.borderSize), document.body.scrollWidth * 0.4)
 
-      // this.$refs.dra
       this.mainDrawer.width = width
     },
     setEvents() {
@@ -135,15 +134,12 @@ export default {
       const container = this.$refs.container.$el
       const appBar = this.$refs.appBar.$el
       const drawerBorder = el.querySelector('.v-navigation-drawer__border')
-      // const vm = this
       const direction = el.classList.contains('v-navigation-drawer--right') ? 'right' : 'left'
 
       const resize = (e, b) => {
         document.body.style.cursor = 'ew-resize'
-        const f = direction === 'right' ? document.body.scrollWidth - e.clientX : e.clientX
-        // el.style.width = `${Math.max(f, 4)}px`
-        // this.mainDrawer.width = el.style.width
-        this.setMainDrawerWidth(f)
+        const offset = direction === 'right' ? document.body.scrollWidth - e.clientX : e.clientX
+        this.setMainDrawerWidth(offset)
       }
 
       drawerBorder.addEventListener(
