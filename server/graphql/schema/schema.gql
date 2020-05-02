@@ -115,3 +115,6 @@ type NotificationType {
   name: String!
   data: String
 }
+
+
+# import "session.gql"

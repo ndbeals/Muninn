@@ -8,6 +8,7 @@ type Profile {
 
 type User {
   id: ID!
+  token: String!
   name: String!
   createdAt: Date!
   updatedAt: Date!

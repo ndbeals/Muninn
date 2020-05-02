@@ -7,7 +7,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: `%s - ${process.env.npm_package_name}`,
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -20,6 +20,10 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+
+  env: {
+    test: true
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -27,11 +31,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    // '@/plugins/test.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -47,7 +53,8 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     // '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
-    ['nuxt-compress',
+    [
+      'nuxt-compress',
       {
         gzip: {
           cache: true
@@ -58,10 +65,10 @@ export default {
       }
     ]
   ],
-  apollo: {  
+  apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.BACKEND_URL || "http://localhost:3002/graphql"
+        httpEndpoint: process.env.BACKEND_URL || 'http://localhost:3002/graphql'
       }
     }
   },
@@ -72,7 +79,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,

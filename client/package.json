@@ -14,6 +14,7 @@
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "graphql-tag": "^2.10.3",
+    "material-design-icons-iconfont": "^5.0.1",
     "nuxt": "^2.0.0",
     "nuxt-compress": "^1.1.0",
     "vuex": "^3.3.0"
