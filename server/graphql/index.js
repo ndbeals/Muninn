@@ -1,12 +1,3 @@
-// // console.log('import ./grappql');
-// // export * from './main.js';
-
-// // import typeDefs from './schema';
-
-// import setupAPI from './main';
-
-// export default setupAPI;
-
 import { importSchema } from 'graphql-import';
 import { ApolloServer, gql, AuthenticationError } from 'apollo-server-express';
 // import graphqlimport from 'graphql-import';

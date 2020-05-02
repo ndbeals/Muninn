@@ -1,4 +1,8 @@
 import express from 'express';
+import userconf from 'shared/userconfig';
+
+import setupGraphQL from './graphql';
+
 // import session from "express-session";
 
 // import passport from "passport";
@@ -53,17 +57,6 @@ import express from 'express';
 //     // });
 //   })
 // );
-
-import { ApolloServer, AuthenticationError, gql } from 'apollo-server-express'; // How it should be
-// import ApolloServerExpress from 'apollo-server-express';
-// import typeDefs from './api/schema';
-// import resolvers from './api/resolvers';
-// import * as test from './graphql';
-// console.log(test);
-
-// const { ApolloServer, gql } = ApolloServerExpress;
-// console.log(typeDefs);
-import setupGraphQL from './graphql';
 
 async function main() {
   const app = express();

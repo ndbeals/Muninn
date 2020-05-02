@@ -7,7 +7,8 @@
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --inspect -r esm main.js",
+    // "dev": "NODE_PATH=$(npm root):./../ ./node_modules/.bin/nodemon --inspect -r esm index.js",
+    "dev": "NODE_PATH=$(npm root):./../ ./node_modules/.bin/nodemon --inspect -r esm index.js",
     "build": "echo not implemented"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "graphql": "^15.0.0",
     "graphql-import": "^1.0.2",
     "passport": "^0.4.1",
+    "pino": "^6.2.1",
     "sequelize": "^5.21.7"
   },
   "devDependencies": {
