@@ -7,8 +7,9 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SetWidth(state, user) {
+  setWidth(state, width) {
     console.log('Set width mutation')
+    state.width = width
     // state.authUser = user
   }
 }

@@ -3,11 +3,14 @@
 // import axios from 'axios'
 import gql from 'graphql-tag'
 
+import userConfig from '~shared/userconfig'
+
 export const state = () => ({
   authenticated: false,
   token: '',
   id: '',
   name: '',
+  userConfig,
   createdAt: null,
   updatedAt: null,
   profile: {},

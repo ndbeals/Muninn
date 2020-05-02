@@ -13,28 +13,27 @@
               <v-spacer />
             </v-toolbar>
             <v-card-text>
-              <v-form>
-                <v-text-field
-                  v-model="credentials.email"
-                  label="Username"
-                  name="Username"
-                  prepend-icon="mdi-account"
-                  type="text"
-                />
+              <v-text-field
+                v-model="credentials.email"
+                autofocus
+                label="Username"
+                name="Username"
+                prepend-icon="mdi-account"
+                type="text"
+              />
 
-                <v-text-field
-                  id="password"
-                  v-model="credentials.password"
-                  label="Password"
-                  name="password"
-                  prepend-icon="mdi-lock"
-                  type="password"
-                />
-              </v-form>
+              <v-text-field
+                id="password"
+                v-model="credentials.password"
+                label="Password"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+              />
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn type="submit" color="primary">Login</v-btn>
+              <v-btn type="submit" value="submit" color="primary">Login</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -76,17 +75,17 @@ export default {
   },
   methods: {
     async onSubmit(event, b) {
-      // console.log('submitting', this.credentials, this.credentials.email)
+      console.log('submitting', this.credentials, this.credentials.email)
 
       // this.$nuxt.$loading.duration = 2000
-      // this.$nuxt.$loading.start()
-      startLoadingBar(this.$nuxt.$loading, 2000)
+      this.$nuxt.$loading.start()
+      // startLoadingBar(this.$nuxt.$loading, 2000)
       const res = await this.$store.dispatch('user/loginUser', {
         user: this.credentials.email,
         password: this.credentials.password
       })
-      finishLoadingBar(this.$nuxt.$loading)
-      // this.$nuxt.$loading.finish()
+      // finishLoadingBar(this.$nuxt.$loading)
+      this.$nuxt.$loading.finish()
 
       if (res) {
         this.$router.push('/')

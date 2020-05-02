@@ -1,11 +1,13 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
+      ref="drawer"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
       :width="width"
-      fixed
+      :fixed="fixed"
+      :value="true"
       app
     >
       <v-list>
@@ -42,11 +44,13 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
+
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
+
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
@@ -68,10 +72,14 @@
 import { mapState } from 'vuex'
 
 export default {
+  middleware: ['auth'],
   data() {
     return {
+      navigation: {
+        borderSize: 4
+      },
       clipped: false,
-      drawer: false,
+      drawer: true,
       fixed: false,
       items: [
         {
@@ -93,6 +101,65 @@ export default {
   },
   computed: {
     ...mapState('drawer', ['width'])
+  },
+  mounted() {
+    this.setBorderWidth()
+    this.setEvents()
+  },
+  methods: {
+    setBorderWidth() {
+      const i = this.$refs.drawer.$el.querySelector(
+        '.v-navigation-drawer__border'
+      )
+      i.style.width = `${this.navigation.borderSize}px`
+      i.style.cursor = 'ew-resize'
+    },
+    setEvents() {
+      const minSize = this.navigation.borderSize
+      const el = this.$refs.drawer.$el
+      const drawerBorder = el.querySelector('.v-navigation-drawer__border')
+      const vm = this
+      const direction = el.classList.contains('v-navigation-drawer--right')
+        ? 'right'
+        : 'left'
+
+      const resize = (e) => {
+        // console.log('resize: ', e, e.this, e.$store)
+        document.body.style.cursor = 'ew-resize'
+        const f =
+          direction === 'right'
+            ? document.body.scrollWidth - e.clientX
+            : e.clientX
+        el.style.width = `${f}px`
+        this.$store.commit('drawer/setWidth', el.style.width)
+      }
+
+      drawerBorder.addEventListener(
+        'mousedown',
+        (e) => {
+          if (e.offsetX < minSize) {
+            // mousePos = e.x
+            el.style.transition = 'initial'
+            document.addEventListener('mousemove', resize, false, this.$store)
+          }
+        },
+        false
+      )
+
+      document.addEventListener(
+        'mouseup',
+        async () => {
+          console.log('wrong this ', this)
+          el.style.transition = ''
+          // vm.navigation.width = el.style.width
+          // vm.width = el.style.width
+          this.$store.commit('drawer/setWidth', el.style.width)
+          document.body.style.cursor = ''
+          document.removeEventListener('mousemove', resize, false)
+        },
+        false
+      )
+    }
   }
 }
 </script>

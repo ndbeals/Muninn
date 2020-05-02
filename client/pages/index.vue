@@ -77,7 +77,7 @@ export default {
     VuetifyLogo
   },
 
-  middleware: ['auth'],
+  // middleware: ['auth'],
   data() {
     return {}
   },

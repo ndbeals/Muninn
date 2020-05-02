@@ -12,7 +12,7 @@ export default {
   Mutation: {
     // test: (parent, args, { db }, info) => db.User.findAll(),
     login: async (parent, args, { db }, info) => {
-      await sleep(2000);
+      await sleep(250);
       console.log('login mutation: ');
       return {
         id: 'id',

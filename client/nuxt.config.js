@@ -1,4 +1,8 @@
+/* eslint-disable no-param-reassign */
 import colors from 'vuetify/es5/util/colors'
+
+import { resolve } from 'path'
+// const { resolve } = require('path')
 
 export default {
   // mode: 'universal',
@@ -130,6 +134,8 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      config.resolve.alias['~shared'] = resolve('../shared')
+    }
   }
 }
