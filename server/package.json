@@ -7,8 +7,7 @@
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    // "dev": "NODE_PATH=$(npm root):./../ ./node_modules/.bin/nodemon --inspect -r esm index.js",
-    "dev": "NODE_PATH=$(npm root):./../ ./node_modules/.bin/nodemon --inspect -r esm index.js",
+    "dev": "./node_modules/.bin/nodemon --inspect -r esm main.js",
     "build": "echo not implemented"
   },
   "dependencies": {

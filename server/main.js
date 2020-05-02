@@ -1,7 +1,7 @@
 import express from 'express';
-import userconf from 'shared/userconfig';
 
 import setupGraphQL from './graphql';
+import setupAPI from './api';
 
 // import session from "express-session";
 
@@ -60,6 +60,9 @@ import setupGraphQL from './graphql';
 
 async function main() {
   const app = express();
+
+  // await setupAPI(app);
+  console.log('setupapi: ', setupAPI);
 
   await setupGraphQL(app);
 
