@@ -1,6 +1,6 @@
 import allResolvers from './resolvers';
-import sessionResolvers from './session';
+import userResolvers from './user';
 
-const resolvers = [allResolvers, sessionResolvers];
+const resolvers = [allResolvers, userResolvers];
 
 export default resolvers;

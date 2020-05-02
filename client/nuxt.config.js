@@ -27,7 +27,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: colors.teal.darken1, height: '4px', continuous: true },
   /*
    ** Global CSS
    */
@@ -37,6 +37,7 @@ export default {
    */
   plugins: [
     // '@/plugins/test.js'
+    '@/plugins/main.js'
   ],
   /*
    ** Nuxt.js dev-modules

@@ -1,11 +1,17 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 // import axios from 'axios'
+import gql from 'graphql-tag'
 
 export const state = () => ({
   authenticated: false,
   token: '',
-  id: ''
+  id: '',
+  name: '',
+  createdAt: null,
+  updatedAt: null,
+  profile: {},
+  groups: []
 })
 
 export const mutations = {
@@ -13,9 +19,26 @@ export const mutations = {
     console.log('Set Token Mut')
     // state.authUser = user
   },
-  setAuthenticated(state, user) {
-    console.log('Set auth Mut')
-    // state.authUser = user
+  setAuthenticated(state, authState) {
+    state.authenticated = authState
+  },
+  setID(state, id) {
+    state.id = id
+  },
+  setName(state, name) {
+    state.name = name
+  },
+  setCreatedAt(state, createdAt) {
+    state.createdAt = createdAt
+  },
+  setUpdatedAt(state, updatedAt) {
+    state.updatedAt = updatedAt
+  },
+  setProfile(state, profile) {
+    state.profile = profile
+  },
+  setGroups(state, groups) {
+    state.groups = groups
   }
 }
 
@@ -26,6 +49,42 @@ export const actions = {
     // if (req.session && req.session.authUser) {
     //   commit('SET_USER', req.session.authUser)
     // }
+  },
+  async loginUser({ commit }, credentials) {
+    const client = this.app.apolloProvider.defaultClient
+
+    let login
+
+    try {
+      ;({
+        data: { login }
+      } = await client.mutate({
+        mutation: gql`
+          mutation {
+            login(email: "test", password: "password") {
+              id
+              token
+              name
+            }
+          }
+        `,
+        variables: credentials
+      }))
+    } catch (error) {
+      return false
+    }
+    // console.log('loginuser action', credentials, res)
+
+    if (login.token !== null) {
+      commit('setAuthenticated', true)
+
+      commit('setToken', login.token)
+      commit('setID', login.id)
+      commit('setName', login.Name)
+
+      return true
+    }
+    return false
   }
   // async login({ commit }, { username, password }) {
   //   console.log('Login in store/drawer.js')

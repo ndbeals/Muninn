@@ -54,23 +54,23 @@
             "request": "launch",
             "port": 9222,
             "name": "Frontend: Launch Chrome",
-            "url": "http://localhost:${config:app.port}",
-            "webRoot": "${workspaceFolder}/frontend/src",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/client",
             "breakOnLoad": true,
             "sourceMaps": true,
-            "sourceMapPathOverrides": {
-                "webpack:///*": "*",
-                "webpack:///./*": "${webRoot}/*",
-                "webpack:///src/*": "${webRoot}/*",
-                "webpack:///./src/*": "${webRoot}/*",
-                "webpack:///./src/views/*": "${webRoot}/views/*",
-                "webpack:///./node_modules/*": "${workspaceFolder}/node_modules/*",
-                "webpack:///./~/*": "${webRoot}/node_modules/*",
-            },
-            "env": {
-                "NO_BACKEND": "1"
-            },
-            "preLaunchTask": "webpack-dev-start",
+            // "sourceMapPathOverrides": {
+            //     "webpack:///*": "*",
+            //     "webpack:///./*": "${webRoot}/*",
+            //     "webpack:///src/*": "${webRoot}/*",
+            //     "webpack:///./src/*": "${webRoot}/*",
+            //     "webpack:///./src/views/*": "${webRoot}/views/*",
+            //     "webpack:///./node_modules/*": "${workspaceFolder}/node_modules/*",
+            //     "webpack:///./~/*": "${webRoot}/node_modules/*",
+            // },
+            // "env": {
+            //     "NO_BACKEND": "1"
+            // },
+            // "preLaunchTask": "webpack-dev-start",
             // "postDebugTask": "webpack-dev-stop",
         },
     ]

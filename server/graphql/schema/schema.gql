@@ -36,15 +36,6 @@ type Query {
 # import "user.gql"
 
 
-type UserGroup {
-  id: ID!
-  Users: [User!]!
-  displayName: String!
-  extraData: String
-  createdAt: Date!
-  updatedAt: Date!
-  deletedAt: Date!
-}
 
 
 interface EventCreator {

@@ -8,10 +8,20 @@ type Profile {
 
 type User {
   id: ID!
-  token: String!
+  token: String
   name: String!
   createdAt: Date!
   updatedAt: Date!
   Profile: Profile!
   Groups: [UserGroup]
+}
+
+type UserGroup {
+  id: ID!
+  Users: [User!]!
+  displayName: String!
+  extraData: String
+  createdAt: Date!
+  updatedAt: Date!
+  deletedAt: Date!
 }

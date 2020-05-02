@@ -2,25 +2,29 @@
   <v-container fill-height fluid>
     <v-row> </v-row>
     <v-row align="center" justify="center">
-      <v-col cols="12" xs="12" sm="10" md="8" lg="6">
-        <v-form @submit="onSubmit">
+      <v-col cols="12" xs="12" sm="10" md="8" lg="5">
+        <v-form @submit.prevent="onSubmit">
           <v-card class="elevation-12 mb-1 ">
             <v-toolbar color="primary" dark flat>
               <v-spacer />
-              <v-toolbar-title primary-title>Login</v-toolbar-title>
+              <v-toolbar-title primary-title class="display-1">
+                Sign in
+              </v-toolbar-title>
               <v-spacer />
             </v-toolbar>
             <v-card-text>
               <v-form>
                 <v-text-field
-                  label="Login"
-                  name="login"
+                  v-model="credentials.email"
+                  label="Username"
+                  name="Username"
                   prepend-icon="mdi-account"
                   type="text"
                 />
 
                 <v-text-field
                   id="password"
+                  v-model="credentials.password"
                   label="Password"
                   name="password"
                   prepend-icon="mdi-lock"
@@ -42,6 +46,9 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/extensions
+import { startLoadingBar, finishLoadingBar } from '~/js/loading'
+
 export default {
   // middleware: ['auth'],
   layout: 'guest',
@@ -50,8 +57,6 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: false,
-      submitting: false,
       error: null,
       credentials: {
         email: '',
@@ -71,28 +76,22 @@ export default {
   },
   methods: {
     async onSubmit(event, b) {
-      console.log('submitting', event, this.state)
-      event.preventDefault()
+      // console.log('submitting', this.credentials, this.credentials.email)
 
-      this.$store.state.user.authenticated = true
-      this.$router.push('/')
+      // this.$nuxt.$loading.duration = 2000
+      // this.$nuxt.$loading.start()
+      startLoadingBar(this.$nuxt.$loading, 2000)
+      const res = await this.$store.dispatch('user/loginUser', {
+        user: this.credentials.email,
+        password: this.credentials.password
+      })
+      finishLoadingBar(this.$nuxt.$loading)
+      // this.$nuxt.$loading.finish()
 
-      this.submitting = true
-      const { credentials } = this
-      try {
-        console.log('trying')
-        // const res = await this.$apollo
-        //   .mutate({
-        //     mutation: authenticateUserGql,
-        //     variables: credentials
-        //   })
-        //   .then(({ data }) => data && data.authenticateUser)
-        // await this.$apolloHelpers.onLogin(res.token, undefined, { expires: 7 })
-        // this.successfulData = res
-        // this.isAuthenticated = true
-      } catch (e) {
-        console.error(e)
-        this.error = e
+      if (res) {
+        this.$router.push('/')
+      } else {
+        this.error = 'Invalid User or Email'
       }
     },
     async onLogout() {
