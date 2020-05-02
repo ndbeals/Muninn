@@ -3,6 +3,12 @@ import express from 'express';
 import setupGraphQL from './graphql';
 import setupAPI from './api';
 
+import sha from './shared';
+
+console.log('SHA: ', sha);
+
+// import pino from 'pino';
+// console.log('pino: ', pino);
 // import session from "express-session";
 
 // import passport from "passport";

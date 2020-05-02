@@ -1,12 +1,15 @@
-import { Router, express } from 'express';
+import express, { Router } from 'express';
 import { check, query, validationResult, checkSchema, matchedData } from 'express-validator';
+
+import { errorStructure, logger } from '../shared';
+// const { check, query, validationResult, checkSchema, matchedData } = expressValidator;
 
 const routes = Router();
 
 //   // app.use(bodyParser);
 //   // app.use(express.json());
 routes.use(express.json());
-routes.use(express.urlencoded());
+routes.use(express.urlencoded({ extended: true }));
 // routes.use(express.json())
 // routes.use(express.json())
 

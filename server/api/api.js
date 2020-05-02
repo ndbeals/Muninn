@@ -29,17 +29,11 @@
 //   return graphqlServer;
 // }
 
-// function errorStructure(msg) {
-//   return {
-//     value: 0,
-//     msg,
-//     param: '',
-//     location: '',
-//   };
-// }
+// import { Router } from 'express';
+// import express from 'express';
+// import { check, query, validationResult, checkSchema, matchedData } from 'express-validator';
 
-import { Router } from 'express';
-
+// console.log('express: ', check);
 // export const
 
-export default async function setupAPI(app) {}
+// export default async function setupAPI(app) {}

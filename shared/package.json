@@ -1,0 +1,12 @@
+{
+  "name": "shared-js",
+  "version": "1.0.0",
+  "description": "Universal JS",
+  "main": "index.js",
+  "author": "Nathan Beals",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "pino": "^6.2.1"
+  }
+}

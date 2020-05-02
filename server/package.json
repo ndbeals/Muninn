@@ -7,7 +7,7 @@
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --inspect -r esm main.js",
+    "dev": "./node_modules/.bin/nodemon --inspect -r esm main.js | ./node_modules/.bin/pino-pretty",
     "build": "echo not implemented"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "express-validator": "^6.4.1",
     "graphql": "^15.0.0",
     "graphql-import": "^1.0.2",
+    "module-alias": "^2.2.2",
     "passport": "^0.4.1",
     "pino": "^6.2.1",
     "sequelize": "^5.21.7"
@@ -31,6 +32,7 @@
     "eslint-plugin-nuxt": "^0.5.2",
     "eslint-plugin-prettier": "^3.1.3",
     "nodemon": "^2.0.3",
+    "pino-pretty": "^4.0.0",
     "prettier": "^2.0.5"
   }
 }

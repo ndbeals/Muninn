@@ -17,6 +17,7 @@
     "material-design-icons-iconfont": "^5.0.1",
     "nuxt": "^2.0.0",
     "nuxt-compress": "^1.1.0",
+    "pino": "^6.2.1",
     "vuetify": "^2.2.26",
     "vuex": "^3.3.0"
   },
