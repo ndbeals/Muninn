@@ -19,6 +19,13 @@ module.exports = {
     'require-await': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': 'off',
     // 'import/extensions': 'off',
+    camelcase: ['error', { ignoreImports: true, allow: ['password_options', 'bcrypt_salt_rounds'] }],
+    'no-restricted-syntax': [
+      'off',
+      {
+        selector: 'ForOfStatement',
+      },
+    ],
   },
   globals: {
     Atomics: 'readonly',
@@ -46,11 +53,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: [
-        '.vscode/*',
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
-      ],
+      files: ['.vscode/*', '**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         node: true,
         es6: true,

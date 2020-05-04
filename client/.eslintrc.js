@@ -19,11 +19,14 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'require-await': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': 'off',
-    'import/extensions': 'off'
+    'import/extensions': 'off',
+    'no-param-reassign': 'off',
+    'no-shadow': 'off'
   },
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
+    $nuxt: true
   },
   parserOptions: {
     ecmaVersion: 2018,

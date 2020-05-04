@@ -1,9 +1,11 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-shadow */
 // import axios from 'axios'
 import gql from 'graphql-tag'
 
 import userConfig from '~shared/userconfig'
+
+// import apolloProvider from '@/.nuxt/apollo-module'
+
+// console.log('APP PROV: ', apolloProvider)
 
 export const state = () => ({
   authenticated: false,
@@ -54,19 +56,19 @@ export const mutations = {
 export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
   nuxtServerInit({ commit }, { req }) {
-    console.log('Nuxt Server Init in store/user.js')
+    // console.log('Nuxt Server Init in store/user.js')
     // if (req.session && req.session.authUser) {
     //   commit('SET_USER', req.session.authUser)
     // }
   },
-  async loginUser({ commit }, credentials) {
+  async loginUser(ctx, credentials) {
     const client = this.app.apolloProvider.defaultClient
-
+    const { commit } = ctx
     let login
     try {
       ;({
         data: { login }
-      } = await client.mutate({
+      } = await $nuxt.$apollo.mutate({
         mutation: gql`
           mutation login($user: String!, $password: String!) {
             login(user: $user, password: $password) {
@@ -89,6 +91,17 @@ export const actions = {
       commit('setToken', login.token)
       commit('setID', login.id)
       commit('setName', login.Name)
+
+      $nuxt.$apolloHelpers.onLogin(login.token)
+      console.log('onLogin: success')
+      // await client.mutate({
+      //   mutation: gql`
+      //     mutation test($id: ID) {
+      //       test(id: $id)
+      //     }
+      //   `,
+      //   variables: { id: 215 }
+      // })
 
       return true
     }

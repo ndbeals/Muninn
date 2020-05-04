@@ -3,13 +3,16 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 
 function loadColumn(colName, convert = (x) => x) {
-  return async (parent, {}, { db }, info) =>
-    convert((await parent.reload({ attributes: [colName] }))[colName]);
+  return async (parent, args, { db }, info) => convert((await parent.reload({ attributes: [colName] }))[colName]);
 }
 
 export default {
   Mutation: {
-    test: (parent, args, { db }, info) => db.User.findAll(),
+    test: (parent, args, argss, info) => {
+      console.log('test mut');
+      return '1234';
+      // db.User.findAll()
+    },
   },
 
   Query: {
@@ -26,30 +29,27 @@ export default {
     Notifier: (parent, { id }, { db }, info) => db.Notifier.findByPk(id),
     Notifiers: (parent, args, { db }, info) => db.Notifier.findAll(),
 
-    NotifierGroup: (parent, { id }, { db }, info) =>
-      db.NotifierGroup.findByPk(id),
+    NotifierGroup: (parent, { id }, { db }, info) => db.NotifierGroup.findByPk(id),
 
     // NotifierGroups: async (parent, args, { db, user }, info) => {
     BaseNotifierGroups: async (parent, args, { db, user }, info) => {
-      const user_groups = await user.getUserGroups();
-      const notifier_groups = [];
+      const userGroups = await user.getUserGroups();
+      const notifierGroups = [];
 
-      for (const user_group of user_groups) {
-        const notifier_group = await user_group.getNotifierGroups({
+      for (const userGroup of userGroups) {
+        const notifierGroup = await userGroup.getNotifierGroups({
           where: {
             parentID: null,
           },
         });
-        notifier_groups.push(...notifier_group);
+        notifierGroups.push(...notifierGroup);
       }
-      return notifier_groups;
+      return notifierGroups;
     },
     // NotifierGroupTree: (parent, args, { db }, info) => db.NotifierGroup.findAll({ include: [{ model: db.NotifierGroup, nested: true }]}),
-    NotifierGroupTree: (parent, args, { db }, info) =>
-      db.NotifierGroup.findAll(),
+    NotifierGroupTree: (parent, args, { db }, info) => db.NotifierGroup.findAll(),
 
-    Notification: (parent, { id }, { db }, info) =>
-      db.Notification.findByPk(id),
+    Notification: (parent, { id }, { db }, info) => db.Notification.findByPk(id),
     Notifications: (parent, args, { db }, info) => db.Notification.findAll(),
   },
   User: {
@@ -69,23 +69,19 @@ export default {
   },
 
   Notifier: {
-    Group: async (parent, args, { db }, info) =>
-      db.NotifierGroup.findByPk(parent.notifierGroupID),
+    Group: async (parent, args, { db }, info) => db.NotifierGroup.findByPk(parent.notifierGroupID),
 
     Events: async (parent, args, { db }, info) => parent.getEvents(),
   },
 
   NotifierGroup: {
-    Notifiers: async (parent, args, { db }, info) =>
-      db.Notifier.findAll({ where: { notifierGroupID: parent.id } }),
+    Notifiers: async (parent, args, { db }, info) => db.Notifier.findAll({ where: { notifierGroupID: parent.id } }),
 
-    Parent: async (parent, args, { db }, info) =>
-      db.NotifierGroup.findByPk(parent.parentID),
+    Parent: async (parent, args, { db }, info) => db.NotifierGroup.findByPk(parent.parentID),
 
     Children: async (parent, args, { db }, info) => parent.getNotifierGroups(),
 
-    Owner: async (parent, args, { db }, info) =>
-      db.UserGroup.findByPk(parent.ownerID),
+    Owner: async (parent, args, { db }, info) => db.UserGroup.findByPk(parent.ownerID),
   },
   Notification: {
     UserGroup: async (parent, args, { db }, info) => parent.getUserGroups(),
