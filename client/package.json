@@ -5,6 +5,7 @@
   "author": "Nathan Beals",
   "private": true,
   "scripts": {
+    "dev-debug": "node --inspect node_modules/.bin/nuxt",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",

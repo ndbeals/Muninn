@@ -15,7 +15,11 @@
   </v-list-item>
 </template>
 
-<style></style>
+<style scoped>
+.v-list-item__title {
+  font-size: 1.15rem;
+}
+</style>
 
 <script>
 import { mapState } from 'vuex'

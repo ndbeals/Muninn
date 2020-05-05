@@ -5,15 +5,16 @@
     "version": "0.2.0",
     "compounds": [
         {
-            "name": "Frontend + Backend",
-            "configurations": ["Frontend: Launch Chrome","Backend: launch nodemon"],
+            "name": "Both",
+            "configurations": ["Client: Attach","Server: Attach"],
         }
     ],
     "configurations": [
         {
             "type": "node",
             "request": "attach",
-            "name": "Attach",
+            "name": "Server: Attach",
+            "restart": true,
             "port": 9229,
             "skipFiles": [
                 "<node_internals>/**"
@@ -22,27 +23,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Backend: launch this file",
+            "name": "Server: Launch",
             "cwd": "${workspaceFolder}/server",
-            "program": "${file}",
-            // "runtimeExecutable": "node -r esm ",
-            // "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/babel-node",
-            "runtimeArgs": ["-r", "esm"],
-            "restart": false,
-            "console": "internalConsole",
-            "internalConsoleOptions": "openOnFirstSessionStart",
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Backend: launch nodemon",
-            "cwd": "${workspaceFolder}/backend",
-            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/nodemon",
-            "runtimeArgs": ["--inspect", "--exec","babel-node"],
-            "program": "${workspaceFolder}/backend/main.js",
+            // "runtimeExecutable": "${workspaceFolder}/Server/node_modules/.bin/nodemon",
+            // "runtimeArgs": ["--inspect", "--exec","babel-node"],
+            // "runtimeExecutable": "yarn",
+            // "runtimeArgs": ["dev"],
+            // "port": 9229,
+            // "timeout": 25000,
+            "runtimeExecutable": "${workspaceFolder}/server/node_modules/.bin/nodemon",
+            "runtimeArgs": [ "-r", "esm" ],
+            "program": "${workspaceFolder}/server/index.js",
             "restart": true,
             "console": "internalConsole",
             "internalConsoleOptions": "openOnFirstSessionStart",
@@ -52,13 +43,27 @@
         },
         {
             "type": "chrome",
-            "request": "launch",
+            "request": "attach",
+            "name": "Client: Attach",
             "port": 9222,
-            "name": "Frontend: Launch Chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}/client",
-            "breakOnLoad": true,
-            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///*": "${workspaceRoot}/client/*"
+            },
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "port": 9222,
+            "name": "Client: Launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/client",
+            "sourceMapPathOverrides": {
+                "webpack:///*": "${workspaceRoot}/client/*"
+            },
+            // "breakOnLoad": true,
+            // "sourceMaps": true,
             // "sourceMapPathOverrides": {
             //     "webpack:///*": "*",
             //     "webpack:///./*": "${webRoot}/*",
@@ -69,10 +74,27 @@
             //     "webpack:///./~/*": "${webRoot}/node_modules/*",
             // },
             // "env": {
-            //     "NO_BACKEND": "1"
+            //     "NO_Server": "1"
             // },
             // "preLaunchTask": "webpack-dev-start",
             // "postDebugTask": "webpack-dev-stop",
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Server: launch this file",
+            "cwd": "${workspaceFolder}/server",
+            "program": "${file}",
+            // "runtimeExecutable": "node -r esm ",
+            // "runtimeExecutable": "${workspaceFolder}/Server/node_modules/.bin/babel-node",
+            "runtimeArgs": ["-r", "esm"],
+            "restart": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         },
     ]
 }

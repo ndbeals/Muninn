@@ -35,14 +35,14 @@ export default {
   Query: {
     // User: (parent, { id }, { db }, info) => db.User.findByPk(id),
     User(parent, { id }, { db, req }, info) {
-      console.log('user resolver ', id, req.session, req.user);
+      logger.trace('user resolver ');
       if (!id) {
         return req.user;
       }
       return db.User.findByPk(id);
     },
     Users(parent, args, { db }, info) {
-      console.log('users resolver');
+      logger.trace('users resolver');
       return db.User.findAll();
     },
   },

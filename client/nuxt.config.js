@@ -153,6 +153,17 @@ export default {
      */
     extend(config, ctx) {
       config.resolve.alias['~shared'] = resolve('../shared')
+      // config.devtool = 'inline-source-map'
+      // config.devtool = 'eval-source-map'
+      if (ctx.isClient) {
+        config.devtool = 'source-map'
+      }
+      if (ctx.isServer) {
+        config.devtool = 'inline-source-map'
+      }
+      // if (ctx.isDev) {
+      //   config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+      // }
     }
   }
 }

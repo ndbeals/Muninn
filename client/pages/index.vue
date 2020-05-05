@@ -74,11 +74,10 @@ export default {
   mounted() {},
   methods: {
     async loading() {
-      console.log('loading')
+      console.log('loading!!!!!!!!')
       // this.$nextTick(() => {
       // this.$nuxt.$loading.start()
       // startLoadingBar(this.$nuxt.$loading, 5000)
-
       const data = await $nuxt.$apollo.mutate({
         mutation: loadUser
         // variables: { id: 1 }

@@ -11,8 +11,8 @@ import user, { loadUser } from '@/graphql/user.gql'
 export const state = () => ({
   // authenticated: false,
   token: '',
-  id: '',
-  name: undefined,
+  id: false,
+  name: '',
   userConfig,
   createdAt: null,
   updatedAt: null,
@@ -91,12 +91,12 @@ export const actions = {
 
     if (login.token !== null) {
       // commit('setAuthenticated', true)
-      $nuxt.$apolloHelpers.onLogin(login.token)
+      await $nuxt.$apolloHelpers.onLogin(login.token)
 
       // commit('setToken', login.token)
       // commit('setID', login.id)
       // commit('setName', login.Name)
-      dispatch('loadUser')
+      await dispatch('loadUser')
 
       console.log('onLogin: success')
       // await client.mutate({
@@ -116,16 +116,20 @@ export const actions = {
     if (this.app.$apolloHelpers.getToken()) {
       console.log('loading user')
 
-      const { data } = await $nuxt.$apollo.query({
-        query: loadUser
-      })
+      try {
+        const { data } = await this.app.apolloProvider.defaultClient.query({
+          query: loadUser
+        })
 
-      if (data) {
-        const { id, name, createdAt, updatedAt } = data.User
-        commit('setID', id)
-        commit('setName', name)
-        commit('setCreatedAt', createdAt)
-        commit('setUpdatedAt', updatedAt)
+        if (data) {
+          const { id, name, createdAt, updatedAt } = data.User
+          commit('setID', id)
+          commit('setName', name)
+          // commit('setCreatedAt', createdAt)
+          // commit('setUpdatedAt', updatedAt)
+        }
+      } catch (error) {
+        console.error('Caught err: ', error)
       }
     }
   }

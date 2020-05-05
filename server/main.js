@@ -53,11 +53,11 @@ passport.use(
 async function main() {
   const app = express();
   // Setup express-session
-  // app.use(session({ secret: '' }));
   app.use(express.json()); // for parsing application/json
   // app.use(express.urlencoded({ extended: true })); // for application/x-www-form-urlencoded
   // app.use(express.raw());
   // app.use(express.text());
+
   // setup passport
   app.use(
     session({
