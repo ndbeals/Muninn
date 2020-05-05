@@ -7,7 +7,6 @@
       :width="mainDrawer.width"
       :permanent="drawer"
       :clipped="mainDrawer.clipped"
-      absolute
       app
     >
       <v-list>
@@ -39,12 +38,12 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <!-- <v-btn icon @click.stop="clipped = !clipped">
+      <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
       </v-btn>
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
+      </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -53,7 +52,7 @@
     </v-app-bar>
 
     <v-content ref="container">
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>
@@ -78,6 +77,7 @@
 // import { mapMutations } from 'vuex'
 // import { mapState } from 'vuex'
 import UserDrawerItem from '@/components/user/drawerItem.vue'
+import NotificationPage from '@/pages/index.vue'
 
 // console.log(mapState('user', ['userConfig.mainDrawer.width']))
 export default {
@@ -90,14 +90,38 @@ export default {
       navigation: {
         borderSize: 4
       },
-      clipped: true,
+      clipped: false,
       drawer: true,
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          icon: 'mdi-calendar-alert',
+          title: 'All',
+          to: '/',
+          component: NotificationPage
+        },
+        // {
+        //   icon: 'mdi-calendar-clock',
+        //   title: 'Past Due',
+        //   to: '/'
+        // },
+        {
+          icon: 'mdi-calendar-today',
+          title: 'Today',
+          component: NotificationPage,
+          to: '/today'
+        },
+        {
+          icon: 'mdi-calendar-week',
+          title: 'Week',
+          to: '/week',
+          component: 'pages/index.vue'
+        },
+        {
+          icon: 'mdi-calendar-month',
+          title: 'Month',
+          to: '/month',
+          component: 'pages/index.vue'
         },
         {
           icon: 'mdi-chart-bubble',
@@ -110,7 +134,7 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
       mainDrawer: {
-        clipped: true,
+        clipped: false,
         resizing: false,
         width: 200,
         borderSize: 4

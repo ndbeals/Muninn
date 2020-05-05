@@ -51,6 +51,9 @@
             "sourceMapPathOverrides": {
                 "webpack:///*": "${workspaceRoot}/client/*"
             },
+            "skipFiles": [
+                "_nuxt/**"
+            ]
         },
         {
             "type": "chrome",
