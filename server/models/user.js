@@ -31,15 +31,17 @@
 //   return User;
 // };
 
+import crypto from 'crypto';
 import Sequelize from 'sequelize';
 import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 // import {Model} from "sequelize";
 // const { Sequelize, Model, DataTypes } = require('sequelize');
 // const db = require("../models");
 // import db from "../models";
 
-import { password_options } from '../config';
+import { token_options, password_options } from '../config';
 
 export default (sequelize, DataTypes) => {
   const db = sequelize.models;
@@ -67,7 +69,7 @@ export default (sequelize, DataTypes) => {
 
     static async login(username, password) {
       // console.log('static async login: ', this, db.User);
-      let user = await this.findOne({
+      const user = await this.findOne({
         where: {
           name: username,
         },
@@ -75,8 +77,10 @@ export default (sequelize, DataTypes) => {
 
       // hashed_password = await bcrypt.hash('admin', password_options.salt_rounds);
 
-      if (user) {
-        user = bcrypt.compareSync(password, user.password) ? user : null;
+      if (user && (await bcrypt.compare(password, user.password))) {
+        // user = bcrypt.compareSync(password, user.password) ? user : null;
+        // user.token = uuidv4();
+        user.token = crypto.randomBytes(token_options.byte_length).toString('base64');
       }
 
       // return done(null, user);

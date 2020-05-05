@@ -1,5 +1,5 @@
 type Mutation {
-    login(user: String, password: String): User
+    login(userName: String, password: String): User
 }
 
 type Profile {

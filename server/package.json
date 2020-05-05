@@ -7,25 +7,33 @@
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --inspect -r esm main.js | ./node_modules/.bin/pino-pretty",
+    "dev": "./node_modules/.bin/nodemon --inspect -r esm index.js | ./node_modules/.bin/pino-pretty",
     "build": "echo not implemented",
     "init-db": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize-cli db:seed:all",
     "reset-db": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize-cli db:seed:all",
     "migrate": "npx sequelize db:migrate"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "apollo-server-express": "^2.12.0",
     "bcrypt": "^4.0.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "express-validator": "^6.4.1",
     "graphql": "^15.0.0",
     "graphql-import": "^1.0.2",
+    "graphql-tools": "^5.0.0",
     "module-alias": "^2.2.2",
     "passport": "^0.4.1",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
     "pg": "^8.0.3",
     "pino": "^6.2.1",
-    "sequelize": "^5.21.7"
+    "sequelize": "^5.21.7",
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -40,5 +48,16 @@
     "pino-pretty": "^4.0.0",
     "prettier": "^2.0.5",
     "sequelize-cli": "^5.5.1"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "allowParens": "always",
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "extends": "./config/.eslintrc.js"
   }
 }

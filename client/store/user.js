@@ -70,8 +70,8 @@ export const actions = {
         data: { login }
       } = await $nuxt.$apollo.mutate({
         mutation: gql`
-          mutation login($user: String!, $password: String!) {
-            login(user: $user, password: $password) {
+          mutation login($userName: String!, $password: String!) {
+            login(userName: $userName, password: $password) {
               id
               token
               name

@@ -1,6 +1,10 @@
+/* eslint-disable import/prefer-default-export */
 const config = {
   password_options: {
     bcrypt_salt_rounds: 10,
+  },
+  token_options: {
+    byte_length: 48,
   },
 };
 
@@ -18,8 +22,21 @@ const config = {
 // });
 
 for (const [key, value] of Object.entries(config)) {
-  console.log('config load: ', key, ' | ', value);
+  // console.log('config load: ', key, ' | ', value);
   module.exports[key] = value;
 }
 
-console.log('module expos: ', module.exports, '  |');
+const pino = require('pino');
+
+// export const logger = pino({
+//   name: 'Muninn',
+//   level: 'trace',
+// });
+module.exports.logger = pino({
+  name: 'Muninn',
+  level: 'trace',
+});
+
+// export default logger;
+
+// console.log('module expos: ', module.exports, '  |');

@@ -1,0 +1,7 @@
+# Server config YAML
+
+base_url: 0.0.0.0
+port: 3002
+
+password_options:
+    bcrypt_salt_rounds: 10

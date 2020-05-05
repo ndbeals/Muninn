@@ -1,4 +1,4 @@
-import pino from 'pino';
+// import pino from 'pino';
 
 export function errorStructure(msg) {
   return {
@@ -9,8 +9,8 @@ export function errorStructure(msg) {
   };
 }
 
-console.log('pino: ', pino);
+// console.log('pino: ', pino);
 
-export { default as logger } from './logger';
+// export { default as logger } from './logger';
 
 export default {};

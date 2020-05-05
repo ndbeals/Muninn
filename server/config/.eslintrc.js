@@ -8,18 +8,27 @@ module.exports = {
     'airbnb-base',
     // '@nuxtjs',
     'prettier',
-    'prettier/vue',
+    // 'prettier/vue',
     'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
   ],
   plugins: ['prettier'],
   rules: {
-    // 'no-console': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'require-await': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': 'off',
-    'import/extensions': 'off',
+    // 'import/extensions': 'off',
+    camelcase: [
+      'error',
+      { ignoreImports: true, allow: ['password_options', 'bcrypt_salt_rounds', 'token_options', 'byte_length'] },
+    ],
+    'no-restricted-syntax': [
+      'off',
+      {
+        selector: 'ForOfStatement',
+      },
+    ],
   },
   globals: {
     Atomics: 'readonly',
@@ -35,23 +44,22 @@ module.exports = {
       'error',
       'always',
       {
-        vue: 'never',
         js: 'never',
         mjs: 'never',
       },
     ],
     'import/resolver': {
       node: {
-        extensions: ['.mjs', '.js', '.vue'],
+        extensions: ['.mjs', '.js'],
       },
     },
   },
   overrides: [
     {
-      files: ['**/*.vue'],
-      rules: {
-        // 'prettier/prettier': 'off'
-        'import/extensions': 'off',
+      files: ['.vscode/*', '**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      env: {
+        node: true,
+        es6: true,
       },
     },
   ],

@@ -1,8 +1,11 @@
-// import GraphQL from 'graphql';
-// const { GraphQLScalarType, Kind } = GraphQL;
 import { GraphQLScalarType, Kind } from 'graphql';
 
-import db from '../../models';
+import { logger } from '../../config';
+
+// import GraphQL from 'graphql';
+// const { GraphQLScalarType, Kind } = GraphQL;
+
+// import db from '../../models';
 
 // console.log('DB?? ', db);
 
@@ -14,17 +17,19 @@ function sleep(ms) {
 
 export default {
   Mutation: {
-    // test: (parent, args, { db }, info) => db.User.findAll(),
-    login: async (parent, args, { dbb }, info) => {
-      const user = await db.User.login('admin', 'admin');
-      console.log('user reslv: ', user, db === dbb);
+    login: async (parent, { userName, password }, { db, req }, info) => {
+      console.log(userName, password);
+      const user = await db.User.login(userName, password);
       // await sleep(150);
-      console.log('login mutation: ', parent, args);
-      return {
-        id: 'id',
-        token: 'tokenNN',
-        name: 'test',
-      };
+      if (user !== null) {
+        logger.debug(`User "${user.name}" logged in successfully.`);
+        req.login(user, (err) => {
+          if (err) {
+            throw err;
+          }
+        });
+      }
+      return user;
     },
   },
 
