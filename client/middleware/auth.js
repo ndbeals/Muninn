@@ -6,6 +6,11 @@ export default function({ app, store, redirect }) {
     //   })
     return redirect('/login')
   }
+  if (!store.state.user.id) {
+    // app.$apollo.
+    store.dispatch('user/loadUser')
+  }
+  console.log('STO: ', !store.state.user.id, store.state.user.id)
 
   return true
 }

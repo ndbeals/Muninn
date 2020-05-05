@@ -1,0 +1,25 @@
+mutation login($userName: String!, $password: String!) {
+  login(userName: $userName, password: $password) {
+    id
+    name
+    token
+  }
+}
+
+# query loadUser() {
+
+# }
+query loadUser {
+  User {
+    id
+    name
+    createdAt
+    updatedAt
+    # Profile: Profile!
+    # Groups: [UserGroup]
+  }
+}
+
+# mutation logout() {
+#     logo
+# }

@@ -46,7 +46,7 @@
 
 <script>
 // eslint-disable-next-line import/extensions
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 import { startLoadingBar, finishLoadingBar } from '~/js/loading'
 
 export default {

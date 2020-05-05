@@ -17,15 +17,16 @@ export default async function setupGraphQL(app) {
     typeDefs,
     resolvers,
     context: async ({ req, res }) => {
-      console.log('got context: ', req.isAuthenticated());
-      if (req.isAuthenticated()) {
-        return { db, user: req.user };
-      }
+      // console.log('got context: ', req.isAuthenticated());
+      // if (req.isAuthenticated()) {
+      // return { db, user: req.user };
+      // }
       return { db, req };
     },
   });
-  addSchemaLevelResolveFunction(graphqlServer.schema, (root, args, context, { fieldName }) => {
-    if (!publicResolvers.includes(fieldName)) {
+  addSchemaLevelResolveFunction(graphqlServer.schema, (root, args, { db, req }, { fieldName }) => {
+    console.log('schema resolve: ', fieldName, req.isAuthenticated());
+    if (req.isUnauthenticated() && !publicResolvers.includes(fieldName)) {
       throw new AuthenticationError('Illegal operation for guests.');
     }
   });

@@ -52,6 +52,8 @@ import gql from 'graphql-tag'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
+import { loadUser } from '@/graphql/user.gql'
+
 import { startLoadingBar, finishLoadingBar } from '~/js/loading'
 
 function sleep(ms) {
@@ -78,12 +80,8 @@ export default {
       // startLoadingBar(this.$nuxt.$loading, 5000)
 
       const data = await $nuxt.$apollo.mutate({
-        mutation: gql`
-          mutation reeeee($id: ID) {
-            test(id: $id)
-          }
-        `,
-        variables: { id: 1 }
+        mutation: loadUser
+        // variables: { id: 1 }
       })
       console.log('loaded: ', data)
 

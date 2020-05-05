@@ -2,6 +2,17 @@ type Mutation {
     login(userName: String, password: String): User
 }
 
+type Query {
+  Profile(id: ID!): Profile
+  # Profiles: [Profile!]!
+
+  User(id: ID): User
+  Users: [User]!
+
+  UserGroup(id: ID): UserGroup
+  UserGroups(id: ID): [UserGroup]!
+}
+
 type Profile {
   id: ID!
   User: User!

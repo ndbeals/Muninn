@@ -4,7 +4,7 @@ import { check, query, validationResult, checkSchema, matchedData } from 'expres
 import { errorStructure } from '../shared';
 // const { check, query, validationResult, checkSchema, matchedData } = expressValidator;
 import db from '../models';
-import Handler from '../events';
+import { Handler } from '../events';
 
 const routes = Router();
 

@@ -16,16 +16,6 @@ export default {
   },
 
   Query: {
-    // User: (parent, { id }, { db }, info) => db.User.findByPk(id),
-    User(parent, { id }, { db }, info) {
-      console.log('user resolver');
-      return db.User.findByPk(id);
-    },
-    Users(parent, args, { db }, info) {
-      console.log('users resolver');
-      return db.User.findAll();
-    },
-
     Notifier: (parent, { id }, { db }, info) => db.Notifier.findByPk(id),
     Notifiers: (parent, args, { db }, info) => db.Notifier.findAll(),
 

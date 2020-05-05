@@ -6,14 +6,7 @@ type Mutation {
 
 
 type Query {
-  Profile(id: ID!): Profile
-  # Profiles: [Profile!]!
 
-  User(id: ID!): User
-  Users: [User]!
-
-  UserGroup(id: ID!): UserGroup
-  UserGroups(id: ID): [UserGroup]!
 
 
   Event(id: ID!): Event

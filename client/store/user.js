@@ -2,6 +2,7 @@
 import gql from 'graphql-tag'
 
 import userConfig from '~shared/userconfig'
+import user, { loadUser } from '@/graphql/user.gql'
 
 // import apolloProvider from '@/.nuxt/apollo-module'
 
@@ -11,7 +12,7 @@ export const state = () => ({
   // authenticated: false,
   token: '',
   id: '',
-  name: '',
+  name: undefined,
   userConfig,
   createdAt: null,
   updatedAt: null,
@@ -71,24 +72,19 @@ export const actions = {
   },
   async loginUser(ctx, credentials) {
     const client = this.app.apolloProvider.defaultClient
-    const { commit } = ctx
+    console.log('login user')
+    const { commit, dispatch } = ctx
     let login
     try {
       ;({
         data: { login }
       } = await $nuxt.$apollo.mutate({
-        mutation: gql`
-          mutation login($userName: String!, $password: String!) {
-            login(userName: $userName, password: $password) {
-              id
-              name
-              token
-            }
-          }
-        `,
+        mutation: user.login,
         variables: credentials
       }))
     } catch (error) {
+      // return false
+      console.error(error)
       return false
     }
     // console.log('loginuser action', credentials, res)
@@ -98,8 +94,9 @@ export const actions = {
       $nuxt.$apolloHelpers.onLogin(login.token)
 
       // commit('setToken', login.token)
-      commit('setID', login.id)
-      commit('setName', login.Name)
+      // commit('setID', login.id)
+      // commit('setName', login.Name)
+      dispatch('loadUser')
 
       console.log('onLogin: success')
       // await client.mutate({
@@ -114,19 +111,22 @@ export const actions = {
       return true
     }
     return false
+  },
+  async loadUser({ commit }) {
+    if (this.app.$apolloHelpers.getToken()) {
+      console.log('loading user')
+
+      const { data } = await $nuxt.$apollo.query({
+        query: loadUser
+      })
+
+      if (data) {
+        const { id, name, createdAt, updatedAt } = data.User
+        commit('setID', id)
+        commit('setName', name)
+        commit('setCreatedAt', createdAt)
+        commit('setUpdatedAt', updatedAt)
+      }
+    }
   }
-  // async login({ commit }, { username, password }) {
-  //   console.log('Login in store/drawer.js')
-  //   commit('SET_USER', {})
-  //   try {
-  //     // const { data } = await axios.post('/api/login', { username, password })
-  //     const data = {}
-  //     console.log('login')
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       throw new Error('Bad credentials')
-  //     }
-  //     throw error
-  //   }
-  // }
 }

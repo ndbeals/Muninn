@@ -11,6 +11,17 @@
       app
     >
       <v-list>
+        <!-- <v-list-item>
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title> TEST </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item> -->
+        <user-drawer-item />
+        <v-divider class="my-2" />
+
         <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -21,6 +32,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <!-- <drawer /> -->
 
     <v-app-bar ref="appBar" :clipped-left="mainDrawer.clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -46,7 +58,7 @@
       </v-container>
     </v-content>
 
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+    <v-navigation-drawer ref="tempDrawer" v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
@@ -56,7 +68,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
+    <v-footer ref="footer" :fixed="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -64,10 +76,14 @@
 
 <script>
 // import { mapMutations } from 'vuex'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
+import UserDrawerItem from '@/components/user/drawerItem.vue'
 
-console.log(mapState('user', ['userConfig.mainDrawer.width']))
+// console.log(mapState('user', ['userConfig.mainDrawer.width']))
 export default {
+  components: {
+    UserDrawerItem
+  },
   middleware: ['auth'],
   data() {
     return {
@@ -113,8 +129,8 @@ export default {
     // ...mapState('user', { width: (state) => state.userConfig.mainDrawer.width })
   },
   mounted() {
-    this.setBorderWidth()
-    this.setEvents()
+    // this.setBorderWidth()
+    // this.setEvents()
   },
   methods: {
     setBorderWidth() {
@@ -124,7 +140,7 @@ export default {
     },
     setMainDrawerWidth(w) {
       // MIN_DRAWER_WIDTH & MAX_DRAWER_WIDTH
-      const width = Math.min(Math.max(w, this.mainDrawer.borderSize), document.body.scrollWidth * 0.4)
+      const width = Math.min(Math.max(w, this.mainDrawer.borderSize + 170), document.body.scrollWidth * 0.4)
 
       this.mainDrawer.width = width
     },
