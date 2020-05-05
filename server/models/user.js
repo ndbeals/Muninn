@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 // const db = require("../models");
 // import db from "../models";
 
-import { token_options, password_options } from '../config';
+import { token_options, password_options, logger } from '../config';
 
 export default (sequelize, DataTypes) => {
   const db = sequelize.models;
@@ -35,7 +35,7 @@ export default (sequelize, DataTypes) => {
     }
 
     static async login(username, password) {
-      console.log('static async login: ', this, db.User);
+      logger.trace(`Attempted login on user: "${username}" with password: "${password}"`);
       const user = await this.findOne({
         where: {
           name: username,

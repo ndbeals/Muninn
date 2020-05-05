@@ -74,9 +74,10 @@ export default {
   },
   mounted() {
     // this.isAuthenticated = !!this.$apolloHelpers.getToken()
-    // if (this.authenticated) {
-    //   this.$router.push('/')
-    // }
+    // eslint-disable-next-line no-extra-boolean-cast
+    if (!!this.$apolloHelpers.getToken()) {
+      this.$router.push('/')
+    }
   },
   methods: {
     async onSubmit(event, b) {

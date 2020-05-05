@@ -73,6 +73,12 @@ export default {
   ],
   apollo: {
     tokenName: 'muninn.cid',
+    cookieAttributes: {
+      expires: undefined // optional, default: 7 (days)
+      //   path: '/', // optional
+      //   // domain: 'example.com', // optional
+      //   secure: process.env.NODE_ENV === 'production'
+    },
     clientConfigs: {
       default: {
         tokenName: 'muninn.cid',

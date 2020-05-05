@@ -95,7 +95,7 @@ export const actions = {
 
     if (login.token !== null) {
       // commit('setAuthenticated', true)
-      // $nuxt.$apolloHelpers.onLogin(login.token)
+      $nuxt.$apolloHelpers.onLogin(login.token)
 
       // commit('setToken', login.token)
       commit('setID', login.id)

@@ -12,12 +12,10 @@ import { logger } from './config';
 import db from './models';
 
 passport.serializeUser(function (user, cb) {
-  // console.log('serialize', user);
   cb(null, user.id);
 });
 
 passport.deserializeUser(async function (id, cb) {
-  // console.log('deserialize');
   const user = await db.User.findByPk(id);
   cb(null, user);
 });
@@ -68,9 +66,9 @@ async function main() {
       resave: false,
       saveUninitialized: false,
       secure: false,
-      cookie: {
-        httpOnly: false,
-      },
+      // cookie: {
+      //   httpOnly: false,
+      // },
       sameSite: 'none',
     })
   );
@@ -79,19 +77,11 @@ async function main() {
   await setupGraphQL(app);
 
   app.post('/login', passport.authenticate('local'), async (req, res) => {
-    console.log('got login');
-
     res.json({ hi: 'byee' });
   });
 
-  // await setupAPI(app);
+  await setupAPI(app);
   // console.log('setupapi: ', setupAPI);
-
-  app.get('/test', async (req, res) => {
-    console.log('got test');
-
-    res.json({ hi: 'byee' });
-  });
 
   app.listen({ port: 3002 }, () => {
     logger.info(`listening on port: ${3002}`);

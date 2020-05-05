@@ -5,3 +5,6 @@ port: 3002
 
 password_options:
     bcrypt_salt_rounds: 10
+
+token_options:
+    byte_length: 48
