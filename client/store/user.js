@@ -8,7 +8,7 @@ import userConfig from '~shared/userconfig'
 // console.log('APP PROV: ', apolloProvider)
 
 export const state = () => ({
-  authenticated: false,
+  // authenticated: false,
   token: '',
   id: '',
   name: '',
@@ -25,9 +25,9 @@ export const mutations = {
     state.token = token
     // state.authUser = user
   },
-  setAuthenticated(state, authState) {
-    state.authenticated = authState
-  },
+  // setAuthenticated(state, authState) {
+  //   state.authenticated = authState
+  // },
   setID(state, id) {
     state.id = id
   },
@@ -53,6 +53,14 @@ export const mutations = {
   }
 }
 
+export const getters = {
+  // authenticated(state) {
+  //   console.log('auth getter')
+  //   const hasToken = !!$nuxt.$apolloHelpers.getToken()
+  //   return hasToken
+  // }
+}
+
 export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
   nuxtServerInit({ commit }, { req }) {
@@ -73,8 +81,8 @@ export const actions = {
           mutation login($userName: String!, $password: String!) {
             login(userName: $userName, password: $password) {
               id
-              token
               name
+              token
             }
           }
         `,
@@ -86,13 +94,13 @@ export const actions = {
     // console.log('loginuser action', credentials, res)
 
     if (login.token !== null) {
-      commit('setAuthenticated', true)
+      // commit('setAuthenticated', true)
+      // $nuxt.$apolloHelpers.onLogin(login.token)
 
-      commit('setToken', login.token)
+      // commit('setToken', login.token)
       commit('setID', login.id)
       commit('setName', login.Name)
 
-      $nuxt.$apolloHelpers.onLogin(login.token)
       console.log('onLogin: success')
       // await client.mutate({
       //   mutation: gql`

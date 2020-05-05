@@ -68,13 +68,24 @@ export default {
           threshold: 10240
         }
       }
-    ]
+    ],
+    '@nuxtjs/proxy'
   ],
   apollo: {
+    tokenName: 'muninn.cid',
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.BACKEND_URL || 'http://localhost:3002/graphql'
+        tokenName: 'muninn.cid',
+        httpEndpoint: process.env.BACKEND_URL || 'http://localhost:3000/graphql'
       }
+    }
+  },
+  proxy: {
+    '/graphql': {
+      target: 'http://localhost:3002/graphql'
+      // pathRewrite: {
+      //   '^/api': '/'
+      // }
     }
   },
   /*

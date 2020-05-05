@@ -18,11 +18,14 @@ export default async function setupGraphQL(app) {
     typeDefs,
     resolvers,
     // context: { db }
-    context: async ({ req }) => {
+    context: async ({ req, res }) => {
       // const { req } = a;
       // get the user token from the headers
       // const token = req.headers.authorization || '';
-
+      // if (!req.session.test) {
+      //   req.session.test = 'TR';
+      // }
+      console.log('got context: ', req.isAuthenticated(), req.session, req.user, req);
       if (req.isAuthenticated()) {
         return { db, user: req.user };
       }
@@ -44,9 +47,9 @@ export default async function setupGraphQL(app) {
   addSchemaLevelResolveFunction(graphqlServer.schema, (root, args, context, { fieldName }) => {
     console.log('schema resolver func', fieldName);
     if (!publicResolvers.includes(fieldName)) {
-      throw AuthenticationError('Illegal operation for guests.');
+      throw new AuthenticationError('Illegal operation for guests.');
     }
   });
 
-  graphqlServer.applyMiddleware({ app });
+  graphqlServer.applyMiddleware({ app, cors: true });
 }

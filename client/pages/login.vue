@@ -14,7 +14,7 @@
             </v-toolbar>
             <v-card-text>
               <v-text-field
-                v-model="credentials.email"
+                v-model="credentials.userName"
                 autofocus
                 label="Username"
                 name="Username"
@@ -46,6 +46,7 @@
 
 <script>
 // eslint-disable-next-line import/extensions
+import { mapGetters } from 'vuex'
 import { startLoadingBar, finishLoadingBar } from '~/js/loading'
 
 export default {
@@ -58,7 +59,7 @@ export default {
     return {
       error: null,
       credentials: {
-        email: '',
+        userName: '',
         password: ''
       },
       successfulData: null
@@ -69,25 +70,29 @@ export default {
       console.log('a: ', a)
       return {}
     }
+    // ...mapGetters('user', ['authenticated'])
   },
   mounted() {
-    this.isAuthenticated = !!this.$apolloHelpers.getToken()
+    // this.isAuthenticated = !!this.$apolloHelpers.getToken()
+    // if (this.authenticated) {
+    //   this.$router.push('/')
+    // }
   },
   methods: {
     async onSubmit(event, b) {
-      console.log('submitting', this.credentials, this.credentials.email)
-
       // this.$nuxt.$loading.duration = 2000
       this.$nuxt.$loading.start()
       // startLoadingBar(this.$nuxt.$loading, 2000)
       const res = await this.$store.dispatch('user/loginUser', {
-        user: this.credentials.email,
+        userName: this.credentials.userName,
         password: this.credentials.password
       })
+      console.log('submitting', this.credentials, this.credentials.userName, res)
       // finishLoadingBar(this.$nuxt.$loading)
       this.$nuxt.$loading.finish()
 
       if (res) {
+        console.log('why no reredout? ', !!this.$apolloHelpers.getToken(), this.authenticated)
         this.$router.push('/')
       } else {
         this.error = 'Invalid User or Email'

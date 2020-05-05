@@ -1,6 +1,5 @@
-export default function({ store, redirect }) {
-  console.log('auth middle ware')
-  if (!store.state.user.authenticated) {
+export default function({ app, store, redirect }) {
+  if (!app.$apolloHelpers.getToken()) {
     //   error({
     //     message: 'You are not connected',
     //     statusCode: 403

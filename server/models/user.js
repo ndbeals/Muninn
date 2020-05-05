@@ -1,36 +1,3 @@
-// module.exports = (sequelize, DataTypes) => {
-//   const User = sequelize.define(
-//     'User',
-//     {
-//       name: {
-//         allowNull: false,
-//         type: DataTypes.TEXT,
-//       },
-//       password: {
-//         allowNull: false,
-//         type: DataTypes.TEXT,
-//       },
-//     },
-//     {
-//       paranoid: true,
-//     }
-//   );
-//   User.associate = function (models) {
-//     // associations can be defined here
-//     // User.Group = User.belongsToMany( models.UserGroup, { through: 'jnc_UserGroups' } )
-//     // User.belongsToMany( models.UserGroup, { through: 'jnc_UserGroups' } )
-//     User.Group = User.belongsToMany(models.UserGroup, {
-//       through: 'jnc_UserGroups',
-//       foreignKey: 'userId',
-//       timestamps: false,
-//     });
-//     // User.belongsTo( models.Profile, { foreignKey: 'profileID' })
-//     User.hasOne(models.Profile, { foreignKey: 'id', targetKey: 'id', constraints: false });
-//     // User.belongsTo( models.Profile, {foreignKey: "id", targetKey: "id"})
-//   };
-//   return User;
-// };
-
 import crypto from 'crypto';
 import Sequelize from 'sequelize';
 import bcrypt from 'bcrypt';
@@ -68,7 +35,7 @@ export default (sequelize, DataTypes) => {
     }
 
     static async login(username, password) {
-      // console.log('static async login: ', this, db.User);
+      console.log('static async login: ', this, db.User);
       const user = await this.findOne({
         where: {
           name: username,

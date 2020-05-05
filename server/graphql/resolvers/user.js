@@ -18,15 +18,18 @@ function sleep(ms) {
 export default {
   Mutation: {
     login: async (parent, { userName, password }, { db, req }, info) => {
-      console.log(userName, password);
+      console.log('WAAA', userName, password, req.session);
       const user = await db.User.login(userName, password);
       // await sleep(150);
       if (user !== null) {
-        logger.debug(`User "${user.name}" logged in successfully.`);
+        // req.session.user = user;
         req.login(user, (err) => {
+          logger.debug(`User "${user.name}" logged in successfully. ${err}`);
           if (err) {
             throw err;
           }
+
+          user.token = req.session.id;
         });
       }
       return user;

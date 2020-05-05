@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
@@ -70,18 +71,28 @@ export default {
   },
   mounted() {},
   methods: {
-    loading() {
+    async loading() {
       console.log('loading')
-      this.$nextTick(() => {
-        // this.$nuxt.$loading.start()
-        startLoadingBar(this.$nuxt.$loading, 5000)
+      // this.$nextTick(() => {
+      // this.$nuxt.$loading.start()
+      // startLoadingBar(this.$nuxt.$loading, 5000)
 
-        setTimeout(() => {
-          // this.$nuxt.$loading.finish()
-          finishLoadingBar(this.$nuxt.$loading)
-          console.log('finihs')
-        }, 5000)
+      const data = await $nuxt.$apollo.mutate({
+        mutation: gql`
+          mutation reeeee($id: ID) {
+            test(id: $id)
+          }
+        `,
+        variables: { id: 1 }
       })
+      console.log('loaded: ', data)
+
+      // setTimeout(() => {
+      //   // this.$nuxt.$loading.finish()
+      //   finishLoadingBar(this.$nuxt.$loading)
+      //   console.log('finihs')
+      // }, 5000)
+      // })
     }
   }
 }
