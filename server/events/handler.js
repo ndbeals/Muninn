@@ -7,9 +7,9 @@
 /* eslint-disable no-var */
 /* eslint-disable max-classes-per-file */
 import { Sequelize, sequelize } from 'sequelize';
-import { config, logger } from '../config';
+import { config, logger } from '../../server/config';
 
-import db from '../models';
+import db from '../../server/models';
 
 export var registeredHandlers = {};
 

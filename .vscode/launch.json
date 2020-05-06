@@ -65,22 +65,6 @@
             "sourceMapPathOverrides": {
                 "webpack:///*": "${workspaceRoot}/client/*"
             },
-            // "breakOnLoad": true,
-            // "sourceMaps": true,
-            // "sourceMapPathOverrides": {
-            //     "webpack:///*": "*",
-            //     "webpack:///./*": "${webRoot}/*",
-            //     "webpack:///src/*": "${webRoot}/*",
-            //     "webpack:///./src/*": "${webRoot}/*",
-            //     "webpack:///./src/views/*": "${webRoot}/views/*",
-            //     "webpack:///./node_modules/*": "${workspaceFolder}/node_modules/*",
-            //     "webpack:///./~/*": "${webRoot}/node_modules/*",
-            // },
-            // "env": {
-            //     "NO_Server": "1"
-            // },
-            // "preLaunchTask": "webpack-dev-start",
-            // "postDebugTask": "webpack-dev-stop",
         },
 
         {
@@ -89,8 +73,6 @@
             "name": "Server: launch this file",
             "cwd": "${workspaceFolder}/server",
             "program": "${file}",
-            // "runtimeExecutable": "node -r esm ",
-            // "runtimeExecutable": "${workspaceFolder}/Server/node_modules/.bin/babel-node",
             "runtimeArgs": ["-r", "esm"],
             "restart": false,
             "console": "internalConsole",
