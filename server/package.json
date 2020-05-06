@@ -59,7 +59,7 @@
     "allowParens": "always",
     "singleQuote": true
   },
-  // "eslintConfig": {
-  //   "extends": "./config/.eslintrc.js"
-  // }
+  "eslintConfig": {
+    "extends": "../.eslintrc.js"
+  }
 }
