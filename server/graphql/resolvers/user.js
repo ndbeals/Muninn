@@ -12,8 +12,10 @@ function sleep(ms) {
 export default {
   Mutation: {
     login: async (parent, { userName, password }, { db, req }, info) => {
+      console.log('login mut');
       if (req.isUnauthenticated()) {
         const user = await db.User.login(userName, password);
+        // console.log('user again: ', user, req.session);
         // await sleep(150);
         if (user !== null) {
           req.login(user, (err) => {
@@ -24,6 +26,7 @@ export default {
             }
 
             user.token = req.session.id;
+            console.log(req.session.id);
           });
         }
         return user;
@@ -35,7 +38,7 @@ export default {
   Query: {
     // User: (parent, { id }, { db }, info) => db.User.findByPk(id),
     User(parent, { id }, { db, req }, info) {
-      logger.trace('user resolver ');
+      logger.trace(`user resolver ${req.isUnauthenticated()}`);
       if (!id) {
         return req.user;
       }

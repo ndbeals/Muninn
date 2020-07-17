@@ -89,26 +89,28 @@ export const actions = {
     }
     // console.log('loginuser action', credentials, res)
 
-    if (login.token !== null) {
-      // commit('setAuthenticated', true)
-      await $nuxt.$apolloHelpers.onLogin(login.token)
+    if (login !== null) {
+      if (login.token !== null) {
+        // commit('setAuthenticated', true)
+        await $nuxt.$apolloHelpers.onLogin(login.token)
 
-      // commit('setToken', login.token)
-      // commit('setID', login.id)
-      // commit('setName', login.Name)
-      await dispatch('loadUser')
+        // commit('setToken', login.token)
+        // commit('setID', login.id)
+        // commit('setName', login.Name)
+        await dispatch('loadUser')
 
-      console.log('onLogin: success')
-      // await client.mutate({
-      //   mutation: gql`
-      //     mutation test($id: ID) {
-      //       test(id: $id)
-      //     }
-      //   `,
-      //   variables: { id: 215 }
-      // })
+        console.log('onLogin: success')
+        // await client.mutate({
+        //   mutation: gql`
+        //     mutation test($id: ID) {
+        //       test(id: $id)
+        //     }
+        //   `,
+        //   variables: { id: 215 }
+        // })
 
-      return true
+        return true
+      }
     }
     return false
   },

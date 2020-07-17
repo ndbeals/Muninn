@@ -47,11 +47,13 @@ export default (sequelize, DataTypes) => {
       if (user && (await bcrypt.compare(password, user.password))) {
         // user = bcrypt.compareSync(password, user.password) ? user : null;
         // user.token = uuidv4();
-        user.token = crypto.randomBytes(token_options.byte_length).toString('base64');
+        user.token = 'dor'; // crypto.randomBytes(token_options.byte_length).toString('base64');
+        console.log('user token: ', user);
+        return user;
       }
 
+      return null;
       // return done(null, user);
-      return user;
     }
   }
 

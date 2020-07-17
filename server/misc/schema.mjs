@@ -57,7 +57,7 @@ type UserGroup {
   extraData: String
   createdAt: Date!
   updatedAt: Date!
-  deletedAt: Date!
+  deletedAt: Date
 }
 
 
@@ -71,7 +71,7 @@ type Event {
   Data: EventData!
   Creator: EventCreator!
   createdAt: Date!
-  deletedAt: Date!
+  deletedAt: Date
 }
 type EventData {
   id: ID!
@@ -81,7 +81,7 @@ type EventData {
   extraData: String
   createdAt: Date!
   updatedAt: Date!
-  deletedAt: Date!
+  deletedAt: Date
 }
 type EventType {
   id: ID!
@@ -97,7 +97,7 @@ type Notifier implements EventCreator {
   extraData: String
   createdAt: Date!
   updatedAt: Date!
-  deletedAt: Date!
+  deletedAt: Date
 }
 type NotifierGroup {
   id: ID
@@ -109,7 +109,7 @@ type NotifierGroup {
   extraData: String
   createdAt: Date!
   updatedAt: Date!
-  deletedAt: Date!
+  deletedAt: Date
 }
 
 type Notification {
@@ -122,7 +122,7 @@ type Notification {
   state: Int!
   deliveredAt: Date!
   createdAt: Date!
-  deletedAt: Date!
+  deletedAt: Date
 }
 type NotificationType {
   id: ID!

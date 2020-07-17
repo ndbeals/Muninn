@@ -1,14 +1,11 @@
 <template>
-  <!-- <v-layout column justify-center align-center> -->
-  <!-- <v-flex xs12 sm8 md6> -->
-  <!-- <div class="text-center">
+  <v-layout column justify-center align-center>
+    <v-flex xs12 sm8 md6>
+      <div class="text-center">
         <logo />
         <vuetify-logo />
-      </div> -->
-
-  <notification-view> </notification-view>
-
-  <!-- <v-card>
+      </div>
+      <v-card>
         <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
         <v-card-text>
           <p>
@@ -45,52 +42,47 @@
           <v-btn color="primary" nuxt to="/inspire">Continue</v-btn>
           <v-btn color="primary" @click="loading">Timer</v-btn>
         </v-card-actions>
-      </v-card> -->
-  <!-- </v-flex> -->
-  <!-- </v-layout> -->
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-// import { loadUser } from '@/graphql/user.gql'
-import { loadNotifications } from '@/graphql/notification.gql'
-
-import { startLoadingBar, finishLoadingBar } from '~/js/loading'
-
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
-import NotificationView from '@/components/notification/notificationView.vue'
-// import Notification from '@/components/notification.vue'
+import { loadUser } from '@/graphql/user.gql'
 
+import { startLoadingBar, finishLoadingBar } from '~/js/loading'
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
 export default {
   components: {
-    // Logo,
-    // VuetifyLogo,
-    NotificationView
-    // Notification
+    Logo,
+    VuetifyLogo
   },
 
   // middleware: ['auth'],
   data() {
-    return { notifications: [] }
+    return {}
   },
-  async mounted() {
-    const { data } = await $nuxt.$apollo.query({ query: loadNotifications })
-    console.log('got all: ', data)
-    this.notifications = data.Notifications
-  },
+  mounted() {},
   methods: {
     async loading() {
       console.log('loading!!!!!!!!')
       // this.$nextTick(() => {
       // this.$nuxt.$loading.start()
       // startLoadingBar(this.$nuxt.$loading, 5000)
-      // const data = await $nuxt.$apollo.mutate({
-      //   mutation: loadUser
-      //   // variables: { id: 1 }
-      // })
-      // console.log('loaded: ', data)
+      const data = await $nuxt.$apollo.mutate({
+        mutation: loadUser
+        // variables: { id: 1 }
+      })
+      console.log('loaded: ', data)
 
       // setTimeout(() => {
       //   // this.$nuxt.$loading.finish()

@@ -1,79 +1,88 @@
-'use strict';
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const { Sequelize, Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  let db = sequelize.models;
+  const db = sequelize.models;
 
   class Notifier extends Model {
     constructor(values, options, a) {
-      super(values, options)
+      super(values, options);
     }
-    static associate(models) {
 
-      Notifier.belongsTo( models.NotifierGroup, {
+    static associate(models) {
+      Notifier.belongsTo(models.NotifierGroup, {
         foreignKey: 'notifierGroupID',
         scope: {
-          status: 'open'
-        }
-      } )
+          status: 'open',
+        },
+      });
 
       // Notifier.Data = Notifier.hasMany( models.NotificationData, { foreignKey: 'notifierID' } );
 
-      Notifier.jncEvents = Notifier.belongsToMany( models.Event, { through: "jnc_NotifierEvents", foreignKey: 'notifierID', timestamps: false } )
+      Notifier.jncEvents = Notifier.belongsToMany(models.Event, {
+        through: 'jnc_NotifierEvents',
+        foreignKey: 'notifierID',
+        timestamps: false,
+      });
     }
 
-    async renderDefaultNotification(event ) {
-      let models = this.sequelize.models,
-        notificationData = event.EventDatum;
-      console.log("render default: ")
+    async renderDefaultNotification(event) {
+      const { models } = this.sequelize;
+      const notificationData = event.EventDatum;
+      console.log('render default: ');
 
-      let title = notificationData.data.title; // TODO: validate?
+      const { title } = notificationData.data; // TODO: validate?
 
-      let body = JSON.stringify(notificationData.data.body); // TODO: possible html validation?
+      const body = JSON.stringify(notificationData.data.body); // TODO: possible html validation?
 
-      await models.Notification.create({
-        groupID: 1,
-        state: 1,
-        title: title,
-        body: body
-      }, {});
+      await models.Notification.create(
+        {
+          groupID: 1,
+          state: 1,
+          title,
+          body,
+        },
+        {}
+      );
     }
 
-    async renderNotification(event ) {
+    async renderNotification(event) {
       let renderFunc = this.renderDefaultNotification;
       if (this.extraData.customRenderer !== undefined) {
-        renderFunc = this.extraData
+        renderFunc = this.extraData;
       }
 
-      await renderFunc.call(this, event );
+      await renderFunc.call(this, event);
     }
   }
 
-  Notifier.init({
-    id: {
-      primaryKey: true,
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
+  Notifier.init(
+    {
+      id: {
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
+      notifierGroupID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'NotifierGroups',
+          key: 'id',
+        },
+      },
+      token: {
+        type: DataTypes.STRING,
+        defaultValue: '',
+        unique: true,
+        allowNull: false,
+      },
+      extraData: DataTypes.JSON,
     },
-    notifierGroupID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'NotifierGroups',
-        key: 'id'
-      }
-    },
-    token: {
-      type: DataTypes.STRING,
-      defaultValue: '',
-      unique: true,
-      allowNull: false,
-    },
-    extraData: DataTypes.JSON
-  }, {
-    sequelize,
-    paranoid: true,
-  });
+    {
+      sequelize,
+      paranoid: true,
+    }
+  );
 
   return Notifier;
 };

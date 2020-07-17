@@ -12,9 +12,10 @@
               </v-toolbar-title>
               <v-spacer />
             </v-toolbar>
-            <v-card-text>
+            <v-card-text error-messages="test">
               <v-text-field
                 v-model="credentials.userName"
+                :error-messages="loginError.length > 0 ? ' ' : ''"
                 autofocus
                 label="Username"
                 name="Username"
@@ -25,6 +26,7 @@
               <v-text-field
                 id="password"
                 v-model="credentials.password"
+                :error-messages="loginError"
                 label="Password"
                 name="password"
                 prepend-icon="mdi-lock"
@@ -57,7 +59,7 @@ export default {
   },
   data() {
     return {
-      error: null,
+      loginError: '',
       credentials: {
         userName: '',
         password: ''
@@ -88,15 +90,15 @@ export default {
         userName: this.credentials.userName,
         password: this.credentials.password
       })
-      console.log('submitting', this.credentials, this.credentials.userName, res)
+      // console.log('submitting', this.credentials, this.credentials.userName, res)
       // finishLoadingBar(this.$nuxt.$loading)
-      this.$nuxt.$loading.finish()
 
+      this.$nuxt.$loading.finish()
       if (res) {
-        console.log('why no reredout? ', !!this.$apolloHelpers.getToken(), this.authenticated)
+        // console.log('why no reredout? ', !!this.$apolloHelpers.getToken(), this.authenticated)
         this.$router.push('/')
       } else {
-        this.error = 'Invalid User or Email'
+        this.loginError = 'Invalid User or Password'
       }
     },
     async onLogout() {

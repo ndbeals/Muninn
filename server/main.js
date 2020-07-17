@@ -23,9 +23,6 @@ passport.deserializeUser(async function (id, cb) {
 passport.use(
   new LocalStrategy(async function (username, password, done) {
     console.log('Local strategy??');
-    const hashed_password = await bcrypt.hash('admin', 11);
-    username = 'admin';
-    password = 'admin';
     let user = await db.User.findOne({
       where: {
         name: username,
@@ -35,16 +32,16 @@ passport.use(
     if (user) {
       user = bcrypt.compareSync(password, user.password) ? user : null;
     }
+    // if (!user) {
+    //   return done(null, false, { message: 'Incorrect username.' });
+    // }
+    // if (!user.validPassword(password)) {
+    //   return done(null, false, { message: 'Incorrect password.' });
+    // }
 
     return done(null, user);
     // User.findOne({ username: username }, function(err, user) {
     //   if (err) { return done(err); }
-    //   if (!user) {
-    //     return done(null, false, { message: 'Incorrect username.' });
-    //   }
-    //   if (!user.validPassword(password)) {
-    //     return done(null, false, { message: 'Incorrect password.' });
-    //   }
     //   return done(null, user);
     // });
   })
@@ -58,7 +55,7 @@ async function main() {
   // app.use(express.raw());
   // app.use(express.text());
 
-  // setup passport
+  // setup express-session
   app.use(
     session({
       name: 'muninn.sid',
@@ -72,8 +69,10 @@ async function main() {
       sameSite: 'none',
     })
   );
+  // setup passport
   app.use(passport.initialize());
   app.use(passport.session());
+  // setup graphql
   await setupGraphQL(app);
 
   app.post('/login', passport.authenticate('local'), async (req, res) => {

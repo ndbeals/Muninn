@@ -1,0 +1,19 @@
+
+
+# query loadUser() {
+
+# }
+query loadNotifications {
+  Notifications {
+    id
+    title
+    body
+    state
+    deliveredAt
+    createdAt
+  }
+}
+
+# mutation logout() {
+#     logo
+# }

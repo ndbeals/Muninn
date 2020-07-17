@@ -4,7 +4,7 @@
     "username": "postgres",
     "password": "development",
     "database": "webdev",
-    "host": "127.0.0.1",
+    "host": "192.168.0.10",
     "operatorsAliases": false
   },
   "development_": {
@@ -12,7 +12,7 @@
     "storage": "./dev.db",
     "username": "root",
     "password": null,
-    "database": "database_development",
+    "database": "webdev",
     "host": "127.0.0.1",
     "operatorsAliases": false
   },

@@ -40,7 +40,10 @@ export default {
     NotifierGroupTree: (parent, args, { db }, info) => db.NotifierGroup.findAll(),
 
     Notification: (parent, { id }, { db }, info) => db.Notification.findByPk(id),
-    Notifications: (parent, args, { db }, info) => db.Notification.findAll(),
+    Notifications: async (parent, args, data, info) => {
+      const notifications = await data.db.Notification.findAll();
+      return notifications;
+    },
   },
   User: {
     Groups: async (parent, args, { db }, info) => {

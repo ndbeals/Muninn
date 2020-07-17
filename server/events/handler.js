@@ -6,10 +6,10 @@
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 /* eslint-disable max-classes-per-file */
-import { Sequelize, sequelize } from 'sequelize';
-import { config, logger } from '../../server/config';
+// import { Sequelize, sequelize } from 'sequelize';
+import { logger } from '../config';
 
-import db from '../../server/models';
+import db from '../models';
 
 export var registeredHandlers = {};
 

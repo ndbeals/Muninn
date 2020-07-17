@@ -108,8 +108,8 @@ export default {
         {
           icon: 'mdi-calendar-today',
           title: 'Today',
-          component: NotificationPage,
           to: '/today'
+          // component: NotificationPage
         },
         {
           icon: 'mdi-calendar-week',
