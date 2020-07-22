@@ -1,0 +1,62 @@
+
+
+type Query {
+
+  Notifier(id: ID!): Notifier
+  Notifiers(id: ID): [Notifier]!
+
+  NotifierGroup(id: ID!): NotifierGroup
+  NotifierGroups: [NotifierGroup]
+  BaseNotifierGroups: [NotifierGroup]
+  NotifierGroupTree: [NotifierGroup]
+
+
+  Notification(id: ID!): Notification
+  Notifications(range: String): [Notification]!
+}
+
+
+
+type Notifier implements EventCreator {
+  id: ID!
+  Group: NotifierGroup
+  Events: [Event]
+  token: String!
+  extraData: String
+  createdAt: Date!
+  updatedAt: Date!
+  deletedAt: Date
+}
+
+type NotifierGroup {
+  id: ID
+  displayName: String
+  Parent: NotifierGroup
+  Children: [NotifierGroup]
+  Owner: UserGroup
+  Notifiers: [Notifier!]
+  extraData: String
+  createdAt: Date!
+  updatedAt: Date!
+  deletedAt: Date
+}
+
+
+type Notification {
+  id: ID!
+  UserGroup: UserGroup!
+  Events: [Event]
+  Type: NotificationType!
+  title: String!
+  body: String!
+  state: Int!
+  deliveredAt: Date!
+  createdAt: Date!
+  deletedAt: Date
+}
+
+type NotificationType {
+  id: ID!
+  name: String!
+  data: String
+}

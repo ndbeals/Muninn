@@ -66,8 +66,9 @@ export class NotifierHandler extends Handler {
   async NotifierReceived({ notifier, data }) {
     const transaction = await db.sequelize.transaction();
 
+    let event;
     try {
-      var event = await db.Event.newEvent(
+      event = await db.Event.newEvent(
         this.name,
         {
           data,

@@ -32,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
 
       const { title } = notificationData.data; // TODO: validate?
 
-      const body = JSON.stringify(notificationData.data.body); // TODO: possible html validation?
+      // const body = JSON.stringify(notificationData.data.body); // TODO: possible html validation?
+      const { body } = notificationData.data; // TODO: possible html validation?
 
       await models.Notification.create(
         {
@@ -47,8 +48,10 @@ module.exports = (sequelize, DataTypes) => {
 
     async renderNotification(event) {
       let renderFunc = this.renderDefaultNotification;
-      if (this.extraData.customRenderer !== undefined) {
-        renderFunc = this.extraData;
+      if (this.extraData) {
+        if (this.extraData.customRenderer !== undefined) {
+          renderFunc = this.extraData;
+        }
       }
 
       await renderFunc.call(this, event);

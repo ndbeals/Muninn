@@ -19,7 +19,7 @@
           </v-btn> -->
       <!-- </v-btn-toggle> -->
       <!-- </v-card-title> -->
-      <v-app-bar color="primary" dense dark>
+      <v-app-bar color="primary" dense dark flat>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -67,7 +67,12 @@
   </v-hover>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* .something {
+    color: var(--v-primary-base);
+    background-color: var(--v-accent-lighten2);
+  } */
+</style>
 
 <script>
 import { mapState } from 'vuex'
