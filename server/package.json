@@ -7,7 +7,7 @@
   "author": "Nathan Beals",
   "license": "AGPL v3.0",
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --inspect -r esm index.js | ./node_modules/.bin/pino-pretty",
+    "dev": "yarn nodemon --inspect -r esm index.js | yarn pino-pretty",
     "build": "echo not implemented",
     "init-db": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize-cli db:seed:all",
     "reset-db": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize-cli db:seed:all",
