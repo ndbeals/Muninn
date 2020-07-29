@@ -1,4 +1,5 @@
 export default async function({ app, store, redirect }) {
+  console.log('auth.js middleware running')
   if (!app.$apolloHelpers.getToken()) {
     //   error({
     //     message: 'You are not connected',

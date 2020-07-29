@@ -7,6 +7,7 @@
       </div> -->
 
   <notification-view> </notification-view>
+  <!-- <h1>fart</h1> -->
 
   <!-- <v-card>
         <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
@@ -70,8 +71,6 @@ export default {
     NotificationView
     // Notification
   },
-
-  // middleware: ['auth'],
   data() {
     return { notifications: [] }
   },
@@ -100,5 +99,6 @@ export default {
       // })
     }
   }
+  // middleware: ['auth'],
 }
 </script>

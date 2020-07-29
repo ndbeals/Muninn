@@ -21,7 +21,7 @@
         <user-drawer-item />
         <v-divider class="my-2" />
 
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" :proop="item.to" nuxt router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -49,15 +49,18 @@
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
+      <nuxt-link to="/">Home</nuxt-link>
     </v-app-bar>
 
-    <v-content ref="container">
+    <!-- <v-content ref="container"> -->
+    <v-main>
       <v-container fluid>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
+    <!-- </v-content> -->
 
-    <v-navigation-drawer ref="tempDrawer" v-model="rightDrawer" :right="right" temporary fixed>
+    <v-navigation-drawer ref="tempDrawer" v-model="rightDrawer" :right="right" :titlee="title" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
@@ -77,7 +80,7 @@
 // import { mapMutations } from 'vuex'
 // import { mapState } from 'vuex'
 import UserDrawerItem from '@/components/user/drawerItem.vue'
-import NotificationPage from '@/pages/index.vue'
+import NotificationPage from '@/pages/_index.vue'
 
 // console.log(mapState('user', ['userConfig.mainDrawer.width']))
 export default {
@@ -108,20 +111,20 @@ export default {
         {
           icon: 'mdi-calendar-today',
           title: 'Today',
-          to: '/today'
-          // component: NotificationPage
+          to: '/today',
+          component: '/pages/index.vue'
         },
         {
           icon: 'mdi-calendar-week',
           title: 'Week',
           to: '/week',
-          component: 'pages/index.vue'
+          component: NotificationPage
         },
         {
           icon: 'mdi-calendar-month',
           title: 'Month',
           to: '/month',
-          component: 'pages/index.vue'
+          component: NotificationPage
         },
         {
           icon: 'mdi-chart-bubble',
@@ -159,8 +162,8 @@ export default {
   methods: {
     setBorderWidth() {
       const i = this.$refs.drawer.$el.querySelector('.v-navigation-drawer__border')
-      i.style.width = `${this.navigation.borderSize}px`
-      i.style.cursor = 'ew-resize'
+      // i.style.width = `${this.navigation.borderSize}px`
+      // i.style.cursor = 'ew-resize'
     },
     setMainDrawerWidth(w) {
       // MIN_DRAWER_WIDTH & MAX_DRAWER_WIDTH

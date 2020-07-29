@@ -100,6 +100,7 @@ export default {
    */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
       dark: false,
       themes: {
@@ -116,9 +117,9 @@ export default {
     }
   },
   generate: {
-    fallback: 'fallback-spa.html'
+    routes: ['/']
   },
-  /*
+  /*     fallback: 'fallback-spa.html',
    ** Build configuration
    */
   build: {

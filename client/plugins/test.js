@@ -1,4 +1,4 @@
-console.log('env: ', process.env.test)
+console.log('plugin: env: ', process.env.test)
 
 export default {
   test: 'trueeee'
